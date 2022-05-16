@@ -163,7 +163,7 @@ function checkVerified(){
         />
 
         <div
-          className={`text-[#6e767d] flex justify-between w-[100%] ${
+          className={`text-[#6e767d] flex justify-between w-[100%]  px-11 ${
             postPage && "mx-auto"
           }`}
         >
