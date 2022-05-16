@@ -1,6 +1,10 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import {useState } from "react";
+import {useState } from "react";import {
+  HeartIcon as HeartIconFilled,
+  ChatIcon as ChatIconFilled,
+  BadgeCheckIcon as BadgeCheckIconFilled,
+} from "@heroicons/react/solid";
 
 
 
@@ -11,7 +15,7 @@ export function checkVerified(){
   const router = useRouter();
   const { id } = router.query;
 
-let veri = "fa-solid fa-circle-check";
+let veri = <BadgeCheckIconFilled className="h-5 mb-0.5 inline-block" />;
 
 let veri2 = "false";
 

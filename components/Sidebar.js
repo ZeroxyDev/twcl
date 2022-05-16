@@ -51,7 +51,7 @@ let veri2 = checkVerified()
           className="h-10 w-10 rounded-full xl:mr-2.5"
         />
         <div className="hidden xl:inline leading-5">
-          <h4 className="font-bold">{session.user.name} <i className={veri2}></i> </h4>
+          <h4 className="font-bold">{session.user.name} {veri2} </h4>
           <p className="text-[#6e767d]">@{session.user.tag}</p>
         </div>
         <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10" />

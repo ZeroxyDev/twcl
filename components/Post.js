@@ -19,6 +19,7 @@ import {
 import {
   HeartIcon as HeartIconFilled,
   ChatIcon as ChatIconFilled,
+  BadgeCheckIcon as BadgeCheckIconFilled,
 } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -46,9 +47,9 @@ function Post({ id, post, postPage }) {
   var verifieds = require('./verified');
 
 
-let veri = "fa-solid fa-circle-check";
+let veri =  <BadgeCheckIconFilled className="h-5 mb-0.5 inline-block" />
 
-let veri3 = "falseverified";
+let veri3 = "";
 
 let veri2 = checkVerified()
 
@@ -128,7 +129,7 @@ function checkVerified(){
                   !postPage && "inline-block max-w-[370px]"
                 }`}
               >
-                {post?.username} <i className={veri2}></i>
+                {post?.username} {veri2}
                 
               </h4>              
               <span
