@@ -113,7 +113,7 @@ function checkVerified(){
           className="h-11 w-11 rounded-full mr-4"
         />
       )}
-      <div className="flex flex-col md:max-w-[800px] md:pr-[0%] pr-[13%] max-w-[500px]">
+      <div className="flex flex-col md:max-w-[800px] pr-[13%] max-w-[500px]">
         <div className={`flex ${!postPage && "justify-between max-w-[700px]"}`}>
           {postPage && (
             <img
