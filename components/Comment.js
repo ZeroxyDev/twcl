@@ -10,8 +10,30 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
+import checkVerified from './verified'
+import {
+  BadgeCheckIcon as BadgeCheckIconFilled,
+} from "@heroicons/react/solid";
 
 function Comment({ comment }) {
+ 
+  var verifieds = require('./verified');
+
+  let veri =  <BadgeCheckIconFilled className="h-5 mb-0.5 inline-block" />
+
+  let veri3 = "";
+  
+  let veri2 = checkVerified()
+  
+  function checkVerified(){
+    if (verifieds.verifieds.includes(comment?.id)){
+      return (veri);
+    }
+    else{
+      return (veri3);
+    }
+  }
+
   return (
     <div className="p-3 flex cursor-pointer border-b border-gray-700">
       <img
@@ -24,7 +46,7 @@ function Comment({ comment }) {
           <div className="text-[#6e767d]">
             <div className="inline-block group">
               <h4 className="font-bold text-[#d9d9d9] text-[15px] sm:text-base inline-block group-hover:underline">
-                {comment?.username}
+                {comment?.username} {veri2}
               </h4>
               <span className="ml-1.5 text-sm sm:text-[15px]">
                 @{comment?.tag}{" "}
