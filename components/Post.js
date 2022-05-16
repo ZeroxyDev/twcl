@@ -123,7 +123,7 @@ function checkVerified(){
             />
           )}
           <div className="text-[#6e767d]">
-            <div className="inline-block group max-w-[370px] mt-2.5 sm:mt-0" >
+            <div className="inline-block group max-w-[370px] mt-2.5 sm:mt-2.5" >
               <h4
                 className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline  ${
                   !postPage && "inline-block max-w-[370px]"
@@ -154,7 +154,7 @@ function checkVerified(){
           </div>
         </div>
         {postPage && (
-          <p className="text-[#d9d9d9] ml-4 mr-4 mt-2 md:-mt-5 md:mr-2 lg:mr-10 sm:ml-14 text-xl sm:-mt-5">{post?.text}</p>
+          <p className="text-[#d9d9d9] ml-4 mr-4 mt-2 mb-3 md:mr-4 lg:mr-4 sm:ml-4 text-xl sm:mt-3">{post?.text}</p>
         )}
         <img  
           src={post?.image}
