@@ -24,6 +24,9 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
+import {
+  BadgeCheckIcon as BadgeCheckIconFilled,
+} from "@heroicons/react/solid";
 
 function Modal() {
   const { data: session } = useSession();
@@ -32,6 +35,23 @@ function Modal() {
   const [post, setPost] = useState();
   const [comment, setComment] = useState("");
   const router = useRouter();
+
+  var verifieds = require('./verified');
+
+  let veri =  <BadgeCheckIconFilled className="h-5 mb-0.5 inline-block" />
+
+  let veri3 = "";
+  
+  let veri2 = checkVerified()
+  
+  function checkVerified(){
+    if (verifieds.verifieds.includes(post?.id)){
+      return (veri);
+    }
+    else{
+      return (veri3);
+    }
+  }
 
   useEffect(
     () =>
@@ -105,7 +125,7 @@ function Modal() {
                     <div>
                       <div className="inline-block group">
                         <h4 className="font-bold text-[#d9d9d9] inline-block text-[15px] sm:text-base">
-                          {post?.username} 
+                          {post?.username} {veri2} 
                         </h4>
                         <span className="ml-1.5 text-sm sm:text-[15px]">
                           @{post?.tag}{" "}
