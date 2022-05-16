@@ -154,7 +154,7 @@ function checkVerified(){
           </div>
         </div>
         {postPage && (
-          <p className="text-[#d9d9d9] ml-4 mr-4 md:mr-2 lg:mr-10 sm:ml-14 -mt-0 text-xl sm:-mt-5">{post?.text}</p>
+          <p className="text-[#d9d9d9] ml-4 mr-4 mt-2 md:-mt-5 md:mr-2 lg:mr-10 sm:ml-14 text-xl sm:-mt-5">{post?.text}</p>
         )}
         <img  
           src={post?.image}
