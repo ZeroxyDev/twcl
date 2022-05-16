@@ -103,7 +103,7 @@ function checkVerified(){
 
   return (
     <div
-      className="p-3 max-w-[816px] flex cursor-pointer border-b border-gray-700"
+      className="flex-col p-3 max-w-[816px] flex cursor-pointer border-b border-gray-700"
       onClick={() => router.push(`/${id}`)}
     >
       {!postPage && (
@@ -113,8 +113,8 @@ function checkVerified(){
           className="h-11 w-11 rounded-full mr-4"
         />
       )}
-      <div className="flex flex-col md:max-w-[800px] pr-[13%] max-w-[500px]">
-        <div className={`flex ${!postPage && "justify-between max-w-[700px]"}`}>
+      <div className="flex flex-col md:max-w-[800px]">
+        <div className={`flex ${!postPage && "justify-between max-w-[700px] pl-[55px] -mt-12 mb-6"}`}>
           {postPage && (
             <img
               src={post?.userImg}
@@ -123,7 +123,7 @@ function checkVerified(){
             />
           )}
           <div className="text-[#6e767d]">
-            <div className="inline-block group max-w-[370px]">
+            <div className="inline-block group max-w-[370px]" >
               <h4
                 className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline  ${
                   !postPage && "inline-block max-w-[370px]"
@@ -144,7 +144,7 @@ function checkVerified(){
               <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
             </span>
             {!postPage && (
-              <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5">
+              <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5 -mb-8">
                 {post?.text}
               </p>
             )}
@@ -154,12 +154,12 @@ function checkVerified(){
           </div>
         </div>
         {postPage && (
-          <p className="text-[#d9d9d9] ml-14 mr-14 md:mr-14 lg:mr-10 text-xl">{post?.text}</p>
+          <p className="text-[#d9d9d9] ml-14 mr-14 md:mr-14 lg:mr-10 -mt-5 text-xl">{post?.text}</p>
         )}
         <img  
           src={post?.image}
           alt=""
-          className="rounded-2xl max-h-[500px] object-cover mr-3 ml-3 mb-3 mt-3"
+          className="rounded-2xl max-h-[500px] object-cover mr-3 ml-3 mb-3 mt-2"
         />
 
         <div
