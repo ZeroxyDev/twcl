@@ -144,7 +144,7 @@ function checkVerified(){
               <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
             </span>
             {!postPage && (
-              <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5 -mb-8">
+              <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5 -mb-4 lg:-mb-8">
                 {post?.text}
               </p>
             )}
@@ -154,12 +154,12 @@ function checkVerified(){
           </div>
         </div>
         {postPage && (
-          <p className="text-[#d9d9d9] ml-14 mr-14 md:mr-14 lg:mr-10 -mt-5 text-xl">{post?.text}</p>
+          <p className="text-[#d9d9d9] ml-4 mr-4 md:mr-2 lg:mr-10 sm:ml-14 -mt-0 text-xl sm:-mt-5">{post?.text}</p>
         )}
         <img  
           src={post?.image}
           alt=""
-          className="rounded-2xl max-h-[500px] object-cover mr-3 ml-3 mb-3 mt-2"
+          className="rounded-2xl max-h-[500px] object-cover mr-3 ml-3 mb-3 mt-2 "
         />
 
         <div
