@@ -133,7 +133,7 @@ function checkVerified(){
                 
               </h4>              
               <span
-                className={`ml-2 text-sm sm:text-[15px] ${!postPage && "ml-1.5 truncate max-w-1"}`}
+                className={`ml-2 text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}
               >
                 @{post?.tag}
               </span>
