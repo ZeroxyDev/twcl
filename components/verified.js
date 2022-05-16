@@ -17,7 +17,7 @@ export function checkVerified(){
 
 let veri = <BadgeCheckIconFilled className="h-5 mb-0.5 inline-block" />;
 
-let veri2 = "false";
+let veri2 = "falseverified";
 
   if (verifieds.includes(session.user.uid)){
       return (veri);
