@@ -103,7 +103,7 @@ function checkVerified(){
 
   return (
     <div
-      className="p-3 max-w-[1920px] flex cursor-pointer border-b border-gray-700"
+      className="p-3 max-w-[816px] flex cursor-pointer border-b border-gray-700"
       onClick={() => router.push(`/${id}`)}
     >
       {!postPage && (
@@ -113,8 +113,8 @@ function checkVerified(){
           className="h-11 w-11 rounded-full mr-4"
         />
       )}
-      <div className="flex flex-col space-y-2 max-w-[550px]">
-        <div className={`flex ${!postPage && "justify-between max-w-[370px]"}`}>
+      <div className="flex flex-col md:max-w-[800px] md:pr-[0%] pr-[13%] max-w-[500px]">
+        <div className={`flex ${!postPage && "justify-between max-w-[700px]"}`}>
           {postPage && (
             <img
               src={post?.userImg}
@@ -125,7 +125,7 @@ function checkVerified(){
           <div className="text-[#6e767d]">
             <div className="inline-block group max-w-[370px]">
               <h4
-                className={`font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline  ${
+                className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline  ${
                   !postPage && "inline-block max-w-[370px]"
                 }`}
               >
@@ -133,7 +133,7 @@ function checkVerified(){
                 
               </h4>              
               <span
-                className={`text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}
+                className={`ml-2 text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}
               >
                 @{post?.tag}
               </span>
@@ -154,15 +154,16 @@ function checkVerified(){
           </div>
         </div>
         {postPage && (
-          <p className="text-[#d9d9d9] mt-0.5 text-xl">{post?.text}</p>
+          <p className="text-[#d9d9d9] ml-14 mr-14 md:mr-14 lg:mr-10 text-xl">{post?.text}</p>
         )}
-        <img
+        <img  
           src={post?.image}
           alt=""
-          className="rounded-2xl max-h-[700px] object-cover mr-2"
+          className="rounded-2xl max-h-[500px] object-cover mr-3 ml-3 mb-3 mt-3"
         />
+
         <div
-          className={`text-[#6e767d] flex justify-between w-10/9 max-w-[300px] min-w-[300px] ${
+          className={`text-[#6e767d] flex justify-between w-[100%] ${
             postPage && "mx-auto"
           }`}
         >
