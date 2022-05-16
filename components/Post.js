@@ -123,7 +123,7 @@ function checkVerified(){
             />
           )}
           <div className="text-[#6e767d]">
-            <div className="inline-block group max-w-[370px] mt-2.5 sm:mt-2.5" >
+            <div className="inline-block group max-w-[370px]" >
               <h4
                 className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline  ${
                   !postPage && "inline-block max-w-[370px]"
