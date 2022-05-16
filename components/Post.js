@@ -123,7 +123,7 @@ function checkVerified(){
             />
           )}
           <div className="text-[#6e767d]">
-            <div className="inline-block group max-w-[370px]" >
+            <div className="inline-block group max-w-[370px] mt-2.5 sm:mt-0" >
               <h4
                 className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline  ${
                   !postPage && "inline-block max-w-[370px]"
@@ -133,7 +133,7 @@ function checkVerified(){
                 
               </h4>              
               <span
-                className={`ml-2 text-sm sm:text-[15px] ${!postPage && "ml-1.5"}`}
+                className={`ml-2 text-sm sm:text-[15px] ${!postPage && "ml-1.5 truncate max-w-1"}`}
               >
                 @{post?.tag}
               </span>
@@ -154,7 +154,7 @@ function checkVerified(){
           </div>
         </div>
         {postPage && (
-          <p className="text-[#d9d9d9] ml-14 mr-14 md:mr-2 lg:mr-10 sm:ml-14 -mt-0 text-xl sm:-mt-5">{post?.text}</p>
+          <p className="text-[#d9d9d9] ml-4 mr-4 md:mr-2 lg:mr-10 sm:ml-14 -mt-0 text-xl sm:-mt-5">{post?.text}</p>
         )}
         <img  
           src={post?.image}
