@@ -151,8 +151,8 @@ function checkVerified(){
           <div className="text-[#6e767d]">
             <div className="inline-block group max-w-[370px]" >
               <h4
-                className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline  ${
-                  !postPage && "inline-block max-w-[370px]"
+                className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline mt-[10px]  ${
+                  !postPage && " -mt-3 inline-block max-w-[370px]"
                 }`}
               >
                 {post?.username} {veri2}
@@ -189,7 +189,7 @@ function checkVerified(){
         />
 
         <div
-          className={`text-[#6e767d] flex justify-between w-[100%]  px-11 ${
+          className={`text-[#6e767d] flex justify-between w-[100%] px-11 ${
             postPage && "mx-auto"
           }`}
         >

@@ -41,7 +41,7 @@ function Comment({ comment }) {
         alt=""
         className="h-11 w-11 rounded-full mr-4"
       />
-      <div className="flex flex-col space-y-2 w-full">
+      <div className="flex flex-col w-full -mt-1">
         <div className="flex justify-between">
           <div className="text-[#6e767d]">
             <div className="inline-block group">
@@ -56,7 +56,7 @@ function Comment({ comment }) {
             <span className="hover:underline text-sm sm:text-[15px]">
               <Moment fromNow>{comment?.timestamp?.toDate()}</Moment>
             </span>
-            <p className="text-[#d9d9d9] mt-0.5 max-w-lg overflow-auto text-[15px] sm:text-base">
+            <p className="text-[#d9d9d9] mt-0.5 mb-1.5 max-w-lg overflow-auto text-[15px] sm:text-base">
               {comment?.comment}
             </p>
           </div>
