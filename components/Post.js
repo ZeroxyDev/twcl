@@ -134,7 +134,7 @@ function checkVerified(){
 
   return (
     <div
-      className="flex-col p-3 max-w-[816px] flex cursor-pointer border-b border-gray-700"
+      className="flex-col p-3 max-w-[1024px] flex cursor-pointer border-b border-gray-700"
       onClick={() => router.push(`/${id}`)}
     >
       {!postPage && (
@@ -144,8 +144,8 @@ function checkVerified(){
           className="h-11 w-11 rounded-full mr-4"
         />
       )}
-      <div className="flex flex-col md:max-w-[800px]">
-        <div className={`flex ${!postPage && "justify-between max-w-[700px] pl-[55px] -mt-12 mb-6"}`}>
+      <div className="flex flex-col">
+        <div className={`flex ${!postPage && "justify-between max-w-[1024px] pl-[55px] -mt-12 mb-6"}`}>
           {postPage && (
             <img
               src={post?.userImg}
@@ -153,7 +153,7 @@ function checkVerified(){
               className="h-11 w-11 rounded-full mr-4"
             />
           )}
-          <div className="text-[#6e767d] w-[210px] text-ellipsis sm:w-full">
+          <div className="text-[#6e767d] text-ellipsis w-full">
             <div className="inline-block group max-w-[370px]" >
               <h4
                 className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline sm:mt-[10px]  ${
