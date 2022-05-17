@@ -148,11 +148,11 @@ function checkVerified(){
               className="h-11 w-11 rounded-full mr-4"
             />
           )}
-          <div className="text-[#6e767d]">
+          <div className="text-[#6e767d] w-[210px] text-ellipsis sm:w-full">
             <div className="inline-block group max-w-[370px]" >
               <h4
-                className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline mt-[10px]  ${
-                  !postPage && " -mt-2 inline-block max-w-[370px]"
+                className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline sm:mt-[10px]  ${
+                  !postPage && " sm:-mt-2 inline-block max-w-[370px]"
                 }`}
               >
                 {post?.username} {veri2}
