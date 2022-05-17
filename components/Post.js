@@ -171,7 +171,7 @@ function checkVerified(){
             </div>
             <span className="hover:underline text-sm sm:text-[15px]">
             </span> · {" "}
-            <span className="hover:underline text-sm sm:text-[15px]">
+            <span className="hover:underline text-sm sm:text-[15px] inline-block">
               <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
             </span>
             {!postPage && (
