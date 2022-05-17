@@ -152,7 +152,7 @@ function checkVerified(){
             <div className="inline-block group max-w-[370px]" >
               <h4
                 className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline mt-[10px]  ${
-                  !postPage && " -mt-3 inline-block max-w-[370px]"
+                  !postPage && " -mt-1.5 inline-block max-w-[370px]"
                 }`}
               >
                 {post?.username} {veri2}
