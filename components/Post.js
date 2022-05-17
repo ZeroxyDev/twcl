@@ -46,6 +46,32 @@ function Post({ id, post, postPage }) {
   const router = useRouter();
   var verifieds = require('./verified');
 
+    /* Función para calcular el tamaño de imagen y carácteres y definir una clase */
+
+    let imagepx = post?.image;
+    let textcount = post?.text.length;
+/*     let checkncharacters = textcount.length; */
+  
+    let nolimits = "rounded-2xl max-h-[500px] object-cover mr-3 ml-3 mb-3 mt-2"
+  
+    let limits = "rounded-2xl max-h-[500px] object-cover mr-3 ml-3 -mb-1 mt-0"
+  
+    let checkch = marginCheck()
+  
+    function marginCheck(){
+      if (imagepx > "30px"){
+        return(nolimits);
+      }
+      else if(textcount > 75){
+        return(nolimits)
+      }
+      else{
+        return(limits);
+      }
+    }
+  
+  /*   Final de función de checkeo */
+
 
 let veri =  <BadgeCheckIconFilled className="h-5 mb-0.5 inline-block" />
 
@@ -159,7 +185,7 @@ function checkVerified(){
         <img  
           src={post?.image}
           alt=""
-          className="rounded-2xl max-h-[500px] object-cover mr-3 ml-3 mb-3 mt-2 "
+          className={checkch}
         />
 
         <div
