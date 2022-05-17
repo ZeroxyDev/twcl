@@ -55,11 +55,16 @@ function Post({ id, post, postPage }) {
     let nolimits = "rounded-2xl max-h-[500px] object-cover mr-3 ml-3 mb-3 mt-2"
   
     let limits = "rounded-2xl max-h-[500px] object-cover mr-3 ml-3 -mb-1 mt-0"
+
+    let combolimits = "rounded-2xl max-h-[500px] object-cover mr-3 ml-3 mb-3 mt-7"
   
     let checkch = marginCheck()
   
     function marginCheck(){
-      if (imagepx > "30px"){
+      if(imagepx > "30px" && textcount > 75){
+        return(combolimits);
+      }
+      else if (imagepx > "30px"){
         return(nolimits);
       }
       else if(textcount > 75){
