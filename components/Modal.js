@@ -122,7 +122,7 @@ function Modal() {
                       alt=""
                       className="h-11 w-11 rounded-full"
                     />
-                    <div>
+                    <div className="max-w-[100%] overflow-hidden">
                       <div className="inline-block group">
                         <h4 className="font-bold text-[#d9d9d9] inline-block text-[15px] sm:text-base">
                           {post?.username} {veri2} 
@@ -135,7 +135,7 @@ function Modal() {
                       <span className="hover:underline text-sm sm:text-[15px]">
                         <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
                       </span>
-                      <p className="text-[#d9d9d9] text-[15px] sm:text-base">
+                      <p className="text-[#d9d9d9] text-[15px] sm:text-base -pr-10px">
                         {post?.text}
                       </p>
                     </div>
