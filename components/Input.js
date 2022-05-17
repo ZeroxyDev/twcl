@@ -100,7 +100,7 @@ function Input() {
 
   return (
     <div
-      className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll scrollbar-hide ${
+      className={`justify-center border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll scrollbar-hide ${
         loading && "opacity-60"
       }`}
     >
@@ -116,12 +116,13 @@ function Input() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="What's happening?"
-            rows="2"
-            className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[50px] mt-[10px]"
+            rows="1"
+            className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[30px] max-w-[95%] sm:max-w-[98%] mt-[10px]"
           />
 
+          <div className="-ml-8 mr-6 mt-4">
           {selectedFile && (
-            <div className="relative">
+            <div className="relative flex w-full">
               <div
                 className="absolute w-8 h-8 bg-[#15181c] hover:bg-[#272c26] bg-opacity-75 rounded-full flex items-center justify-center top-1 left-1 cursor-pointer"
                 onClick={() => setSelectedFile(null)}
@@ -131,13 +132,12 @@ function Input() {
               <img
                 src={selectedFile}
                 alt=""
-                className="rounded-2xl max-h-80 object-contain"
+                className="rounded-2xl max-h-80 min-w-full object-cover"
               />
             </div>
           )}
-        </div>
-        {!loading && (
-          <div className="flex items-center justify-between pt-2.5">
+                  {!loading && (
+          <div className="flex items-center justify-between pt-2.5 mt-4">
             <div className="flex items-center">
               <div
                 className="icon"
@@ -187,6 +187,9 @@ function Input() {
             </button>
           </div>
         )}
+          </div>
+          
+        </div>
       </div>
     </div>
   );

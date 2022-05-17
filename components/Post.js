@@ -74,6 +74,61 @@ function Post({ id, post, postPage }) {
         return(limits);
       }
     }
+
+/*     Función para saber si tiene imagen o no y arreglar margin */
+    let imgclassnotex = "sm:mt-[10px]";
+    let textnormalclass = "sm:mt-[8px]";
+
+    let imgnotext = marginimage()
+
+
+    function marginimage(){
+      if(textcount > 1){
+        return(imgclassnotex);
+      }
+      else{
+        return(textnormalclass);
+      }
+    }
+
+/*     Fin de la función */
+
+/*     Función para saber si tiene imagen o no y arreglar margin (main page)*/
+let imgclassnotex2 = "sm:-mt-2";
+let textnormalclass2 = "sm:mt-[13px]";
+
+let imgnotextfront = marginimage2()
+
+
+function marginimage2(){
+  if(textcount > 1){
+    return(imgclassnotex2);
+  }
+  else{
+    return(textnormalclass2);
+  }
+}
+
+/*     Fin de la función */
+
+/*     Funcíon para quitar marging de sección en grande de imagen */
+let imgclassnotex3 = "text-[#d9d9d9] ml-4 mr-4 mt-2 mb-3 md:mr-4 lg:mr-4 sm:ml-4 text-xl sm:mt-3 overflow-auto break-words";
+let textnormalclass3 = "text-[#d9d9d9] ml-4 mr-4 mt-2 mb-3 md:mr-4 lg:mr-4 sm:ml-4 text-xl sm:mt-0 overflow-auto break-words";
+
+let imagefixmargin = marginimage3()
+
+
+function marginimage3(){
+  if(textcount > 1){
+    return(imgclassnotex3);
+  }
+  else{
+    return(textnormalclass3);
+  }
+}
+
+/*     Fin de la función */
+
   
   /*   Final de función de checkeo */
 
@@ -156,8 +211,8 @@ function checkVerified(){
           <div className="text-[#6e767d] text-ellipsis w-full">
             <div className="inline-block group max-w-[370px]" >
               <h4
-                className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline sm:mt-[10px]  ${
-                  !postPage && " sm:-mt-2 inline-block max-w-[370px]"
+                className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline ${imgnotext}  ${
+                  !postPage && `${imgnotextfront} inline-block max-w-[370px]`
                 }`}
               >
                 {post?.username} {veri2}
@@ -185,7 +240,7 @@ function checkVerified(){
           </div>
         </div>
         {postPage && (
-          <p className="text-[#d9d9d9] ml-4 mr-4 mt-2 mb-3 md:mr-4 lg:mr-4 sm:ml-4 text-xl sm:mt-3 overflow-auto break-words">{post?.text}</p>
+          <p className={imagefixmargin}>{post?.text}</p>
         )}
         <img  
           src={post?.image}
