@@ -10,7 +10,7 @@ import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
 
-function Login({ providers }) {
+function Register({ providers }) {
   return (
     
     <div className="flex flex-col items-center space-y-20 pt-[20vh] sm:pt-[25vh]">
@@ -34,21 +34,6 @@ function Login({ providers }) {
               <p className="inline-block text-black font-bold max-m-[30px] ml-[88px] mt-[17px] absolute text-center">OR</p>
               <div className="h-[3px] w-[80px] mr-10 bg-black mx-auto inline-block mt-7"></div>
               <div className="h-[3px] w-[80px] bg-black inline-block mx-auto mt-7"></div>
-              <div className="flex flex-col justify-center mt-3 -mb-2">
-         {Object.values(providers).map((provider) => (
-          <div key={provider.name}>
-            {/* https://devdojo.com/tailwindcss/buttons#_ */}
-            <button
-              className="w-[20px ] px-[18px] py-[8px] bg-black rounded hover:bg-black group mt-[10px]"
-              onClick={() => signIn(provider.id, { callbackUrl: "/" })}
-            >
-              <span className=" relative w-full text-left text-white transition-colors duration-300 ease-in-out group-hover:text-white">
-                Sign in with {provider.name} 
-              </span>
-            </button>
-          </div>
-         ))}
-         </div>
               </form>
 
             </div>
@@ -67,4 +52,4 @@ function Login({ providers }) {
   );
 }
 
-export default Login;
+export default Register;
