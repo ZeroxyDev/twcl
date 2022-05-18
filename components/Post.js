@@ -101,7 +101,7 @@ let imgnotextfront = marginimage2()
 
 
 function marginimage2(){
-  if(textcount > 1){
+  if(textcount >= 1){
     return(imgclassnotex2);
   }
   else{
