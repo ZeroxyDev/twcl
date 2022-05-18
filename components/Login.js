@@ -13,7 +13,7 @@ import '@fortawesome/fontawesome-free/js/brands';
 function Login({ providers }) {
   return (
     
-    <div className="flex flex-col items-center h-[85vh] sm:h-[75vh] bg-black mt-[15vh] sm:mt-[25vh]">
+    <div className="flex flex-col items-center h-[65vh] sm:h-[75vh] bg-black mt-[15vh] sm:mt-[25vh]">
 {/*       <Image
         src="https://rb.gy/ogau5a"
         width={150}
