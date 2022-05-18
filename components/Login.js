@@ -5,6 +5,10 @@ import {
   ChatIcon as ChatIconFilled,
   BadgeCheckIcon as BadgeCheckIconFilled,
 } from "@heroicons/react/solid";
+import '@fortawesome/fontawesome-free/js/fontawesome';
+import '@fortawesome/fontawesome-free/js/solid';
+import '@fortawesome/fontawesome-free/js/regular';
+import '@fortawesome/fontawesome-free/js/brands';
 
 function Login({ providers }) {
   return (
@@ -29,17 +33,16 @@ function Login({ providers }) {
               <p className="inline-block text-black font-bold max-m-[30px] ml-[88px] mt-[17px] absolute text-center">OR</p>
               <div className="h-[3px] w-[80px] mr-10 bg-black mx-auto inline-block mt-7"></div>
               <div className="h-[3px] w-[80px] bg-black inline-block mx-auto mt-7"></div>
-              <div className="flex justify-center">
+              <div className="flex flex-col justify-center mt-3 -mb-2">
          {Object.values(providers).map((provider) => (
           <div key={provider.name}>
             {/* https://devdojo.com/tailwindcss/buttons#_ */}
             <button
-              className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-black rounded hover:bg-black group mt-[20px]"
+              className="w-[20px ] px-[18px] py-[8px] bg-black rounded hover:bg-black group mt-[10px]"
               onClick={() => signIn(provider.id, { callbackUrl: "/" })}
             >
-              <span className="w-48 h-48 rounded rotate-[-40deg] bg-[#3ccdf1] absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
-              <span className="relative w-full text-left text-white transition-colors duration-300 ease-in-out group-hover:text-white">
-                Sign in with {provider.name}
+              <span className=" relative w-full text-left text-white transition-colors duration-300 ease-in-out group-hover:text-white">
+                Sign in with {provider.name} 
               </span>
             </button>
           </div>
