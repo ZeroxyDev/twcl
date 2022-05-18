@@ -57,8 +57,8 @@ function Login({ providers }) {
                 
       </div>
 
-      <footer className="w-[100%] h-[40px] bg-white absolute bottom-0 flex justify-center items-center ">
-      <p className="font-bold text-xl text-center"><a href="test"><p>Coded with<HeartIconFilled className="h-5 inline-block ml-2 mb-1 transition-colors ease-out duration-400 hover:text-[#f34d42]" /> by Zeroxy</p></a></p>
+      <footer className="w-[100%] h-[40px] bg-black absolute bottom-0 flex justify-center items-center ">
+      <p className="font-bold text-sm text-center text-white mb-10"><a href="test"><p>Coded with<HeartIconFilled className="h-5 inline-block ml-2 mb-1 transition-colors ease-out duration-400 hover:text-[#f34d42]" /> by Zeroxy</p></a></p>
       </footer>
 
 
