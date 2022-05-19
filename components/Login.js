@@ -36,7 +36,7 @@ function Login({ providers }) {
                 <div className="h-[3px] w-[80px] mr-10 bg-black mx-auto inline-block"></div>
               <div className="h-[3px] w-[80px] bg-black inline-block mx-auto "></div>      
                  </div>
-
+              </form>
               <div className="flex flex-col justify-center mt-3 -mb-2">
               <button
               className="px-[18px] py-[8px] bg-black rounded group mt-[10px] transition-color duration-300 ease-in-out hover:bg-[#242424]"
@@ -55,7 +55,6 @@ function Login({ providers }) {
               </span>
             </button>
          </div>
-              </form>
 
             </div>
 
