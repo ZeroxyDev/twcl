@@ -20,7 +20,10 @@ function Login({ providers }) {
         height={150}
         objectFit="contain"
       /> */}
-              <button
+
+
+      <div className="flex flex-row justify-center items-center ">
+      <button
               className="px-[18px] py-[8px] bg-black rounded group mt-[10px] transition-color duration-300 ease-in-out hover:bg-[#242424]"
               onClick={() => signIn('google')}
             >
@@ -36,8 +39,6 @@ function Login({ providers }) {
                 Sign in with GitHub <p className="inline-block ml-2"><i class="fa-brands fa-github"></i></p>
               </span>
             </button>
-
-      <div className="flex flex-row justify-center items-center ">
           <div className="bg-[#ffffff] rounded-xl flex justify-center items-center w-[320px] h-[430px]">
             <div className=" text-black absolute -mt-5 text-center">
               <h1 className=" text-2xl font-medium mb-2">SIGN IN</h1>
@@ -50,7 +51,6 @@ function Login({ providers }) {
               <div className="h-[3px] w-[80px] mr-10 bg-black mx-auto inline-block mt-7"></div>
               <div className="h-[3px] w-[80px] bg-black inline-block mx-auto mt-7"></div>
               <div className="flex flex-col justify-center mt-3 -mb-2">
-
          </div>
               </form>
 
