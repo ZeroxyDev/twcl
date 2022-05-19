@@ -35,22 +35,7 @@ function Login({ providers }) {
               <div className="h-[3px] w-[80px] mr-10 bg-black mx-auto inline-block mt-7"></div>
               <div className="h-[3px] w-[80px] bg-black inline-block mx-auto mt-7"></div>
               <div className="flex flex-col justify-center mt-3 -mb-2">
-              <div>
-        {Object.values(providers).map((provider) => (
-          <div key={provider.name}>
-            {/* https://devdojo.com/tailwindcss/buttons#_ */}
-            <button
-              className="px-[18px] py-[8px] bg-black rounded group mt-[10px] transition-color duration-300 ease-in-out hover:bg-[#242424]"
-              onClick={() => signIn(provider.id, { callbackUrl: "/" })}
-            >
-              <span className=" relative w-full text-left text-white group-hover:text-white">
-                Sign in with {provider.name}
-              </span>
-            </button>
-          </div>
-        ))}
-      </div>
-{/*               <button
+              <button
               className="px-[18px] py-[8px] bg-black rounded group mt-[10px] transition-color duration-300 ease-in-out hover:bg-[#242424]"
               onClick={() => signIn('google')}
             >
@@ -65,7 +50,7 @@ function Login({ providers }) {
               <span className=" relative w-full text-left text-white transition-colors duration-300 ease-in-out group-hover:text-white">
                 Sign in with GitHub <p className="inline-block ml-2"><i class="fa-brands fa-github"></i></p>
               </span>
-            </button> */}
+            </button>
          </div>
               </form>
 
