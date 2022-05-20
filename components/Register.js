@@ -9,6 +9,7 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
+import Link from "next/link";
 
 function Register({ providers }) {
   return (
@@ -31,7 +32,7 @@ function Register({ providers }) {
               <input className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Username"></input>
               <input className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Password" type="password"></input>
               <button className="text-center m-auto mt-5 block py-1 bg-black w-[120px] text-white rounded-md transition-padding duration-300 ease-in-out hover:w-[180px]">REGISTER</button>
-              <p className="text-black block text-xs mt-4">You have an account? - <a href="/"><u className="inline-block font-semibold  ">Login</u></a></p>
+              <p className="text-black block text-xs mt-4">You have an account? - <Link href="/"><u className="inline-block font-semibold cursor-pointer">Login</u></Link></p>
               <div className="flex justify-center items-center mt-7">
                 <p className="inline-block text-black font-bold max-w-[30px] absolute text-center">OR</p>
                 <div className="h-[3px] w-[80px] mr-10 bg-black mx-auto inline-block"></div>
@@ -41,7 +42,7 @@ function Register({ providers }) {
               <div className="flex flex-col justify-center mt-3 -mb-2">
               <button
               className="px-[36px] py-[8px] bg-black rounded group mt-[10px] transition-color duration-300 ease-in-out hover:bg-[#242424]"
-              onClick={() => signIn('google')}
+              onClick={() => signIn('google' , {callbackUrl: `/`})}
             >
               <span className=" relative w-full text-left text-white group-hover:text-white">
                 Sign in with Google <p className="inline-block ml-2"><i className="fa-brands fa-google"></i></p>
@@ -49,7 +50,7 @@ function Register({ providers }) {
             </button>
             <button
               className="px-[18px] py-[8px] bg-black rounded group mt-[10px] transition-color duration-300 ease-in-out hover:bg-[#242424]"
-              onClick={() => signIn('github')}
+              onClick={() => signIn('github' , {callbackUrl: `/`})}
             >
               <span className=" relative w-full text-left text-white transition-colors duration-300 ease-in-out group-hover:text-white">
                 Sign in with GitHub <p className="inline-block ml-2"><i className="fa-brands fa-github"></i></p>

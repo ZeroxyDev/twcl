@@ -9,6 +9,7 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
+import Link from "next/link";
 
 function Login({ providers }) {
   return (
@@ -30,7 +31,7 @@ function Login({ providers }) {
               <input className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Username"></input>
               <input className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Password" type="password"></input>
               <button className="text-center m-auto mt-5 block py-1 bg-black w-[120px] text-white rounded-md transition-padding duration-300 ease-in-out hover:w-[180px]">SIGN IN</button>
-              <p className="text-black block text-xs mt-4">You dont have an account? - <a href="register"><u className="inline-block font-semibold  ">Create Account</u></a></p>
+              <p className="text-black block text-xs mt-4">You dont have an account? - <Link href="register"><u className="inline-block font-semibold cursor-pointer">Create Account</u></Link></p>
               <div className="flex justify-center items-center mt-7">
                 <p className="inline-block text-black font-bold max-w-[30px] absolute text-center">OR</p>
                 <div className="h-[3px] w-[80px] mr-10 bg-black mx-auto inline-block"></div>
