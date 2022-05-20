@@ -7,6 +7,7 @@ import Login from "../components/Login";
 import Modal from "../components/Modal";
 import { modalState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
+import Register from "../components/Register";
 
 export default function Home({ trendingResults, followResults, providers }) {
   const { data: session } = useSession();
