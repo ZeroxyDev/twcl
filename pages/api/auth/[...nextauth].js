@@ -62,7 +62,7 @@ export default NextAuth({
           const uid = session.user.uid;
           const picture = session.user.image;
           const biografy = ""
-          const banner = ""
+          const banner = "https://cdn.wallpapersafari.com/27/35/8X1gKn.png"
           const biolink = ""
           const tag = session.user.emailnsw;
     
