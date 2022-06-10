@@ -49,6 +49,10 @@ function Register({ providers }) {
     }
   }
 
+  function chinf(){
+    console.log(currentUser)
+  }
+
 
   /* useEffect(() => {
     
@@ -99,6 +103,9 @@ function Register({ providers }) {
     const docRef = doc(db, "users", currentUser?.email);
     const payload = { email, displayName, lastSeen, uid, picture, biografy, banner, biolink, tag }
     await setDoc(docRef, payload);
+
+    currentUser.photoURL = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.drupal.org%2Ffiles%2Fprofile_default.jpg&f=1&nofb=1";
+    currentUser.displayName = usernameRef.current.value;
     
 
     router.push("/")
@@ -187,10 +194,11 @@ function Register({ providers }) {
           <div className="bg-[#ffffff] rounded-xl flex justify-center items-center w-[320px] h-[500px]">
             <div className=" text-black absolute -mt-5 text-center">
               <h1 className=" text-2xl font-medium mb-2">REGISTER</h1>
-              <button onClick={saveData}>Save data</button>
+{/*               <button onClick={saveData}>Save data</button>
               <button onClick={checkinfo}>check</button>
               <button onClick={handleLogout}>logout</button>
-              <p className="text-black text-xl">{currentUser?.email}</p>
+              <p className="text-black text-xl">{currentUser?.email}</p> 
+              <p className="text-black text-xl">{currentUser?.name}</p>  */}
               <form className="text-white text-center mt-[20px]">   
               <input ref={emailRef} className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Email" type="email"></input>     
               <input ref={usernameRef} className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Username"></input>
