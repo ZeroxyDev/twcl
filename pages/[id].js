@@ -86,12 +86,10 @@ import {
             setPosts(snapshot.docs);
           }
         )
-        console.log("leido profile")
         return (isLog);
   
       }
       else{
-        console.log("no leido profile")
         return (noLog);
 
       }
@@ -211,7 +209,7 @@ import {
           <Widgets
             trendingResults={trendingResults}
             followResults={followResults}
-            articles={articles}
+/*             articles={articles} */
           />
   
           {isOpen && <Modal />}
@@ -239,7 +237,7 @@ import {
     return {
       props: {
         session,
-        articles: results.articles,
+/*         articles: results.articles, */
         followResults,
         providers,
       },

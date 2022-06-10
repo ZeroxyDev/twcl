@@ -17,7 +17,7 @@ import checkVerified from "../../components/verified";
 import Login from "../../components/Login";
 import { LinkIcon, BookmarkAltIcon } from "@heroicons/react/outline";
 import { signup, useAuth, logout } from "../../firebase"
-import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc } from "firebase/firestore"
+import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query } from "firebase/firestore"
 import Moment from "react-moment";
 
 
@@ -79,6 +79,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
   const [comments, setComments] = useState([]);
   const router = useRouter();
   const { id } = router.query;
+  const [posts, setPosts] = useState([]);
 
 
   if (!session) return <Login providers={providers} />;
@@ -95,6 +96,17 @@ function Profile({ trendingResults, followResults, providers, articles }) {
     console.log(username)
 
   }
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "posts", session.user.uid, "userposts"), orderBy("timestamp", "desc")),
+        (snapshot) => {
+          setPosts(snapshot.docs);
+        }
+      ),
+    [db]
+  );
 
 
   return (
@@ -198,6 +210,11 @@ function Profile({ trendingResults, followResults, providers, articles }) {
          </div>
          <div className="w-full h-[20px] border-b border-gray-700"></div>
           </div>
+          <div className="pb-72">
+        {posts.map((post) => (
+          <Post key={post.id} id={post.id} post={post.data()} />
+        ))}
+      </div>
         </div>
 
         <Widgets

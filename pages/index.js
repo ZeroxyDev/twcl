@@ -19,7 +19,7 @@ export default function Home({ trendingResults, followResults, providers, articl
   return (
     <div className="">
       <Head>
-        <title>Home / LoneNet</title>
+        <title>Home / Kron</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
