@@ -32,16 +32,29 @@ export default NextAuth({
         .toLocaleLowerCase();
 
       session.user.uid = token.sub;
+
+      var palabrasProhibidas = ['@gmail.com'];
+      var numeroPalabrasProhibidas = palabrasProhibidas.length;
+
+      var emailnsw = session.user.email;
+
+      while(numeroPalabrasProhibidas--) {
+       if (emailnsw.indexOf(palabrasProhibidas[numeroPalabrasProhibidas])!=-1) {
+       emailnsw = emailnsw.replace(new RegExp(palabrasProhibidas[numeroPalabrasProhibidas], 'ig'), "");
+        }
+      }
+
+      session.user.emailnsw = emailnsw;
       
       
       //moded
       
       
-      var userdataRef = doc(db, "users", session.user.tag);
+      var userdataRef = doc(db, "users", emailnsw);
       const docSnap = await getDoc(userdataRef);
 
   
-        const noteSnapshot = await getDoc(doc(db, 'users', session.user.tag));
+        const noteSnapshot = await getDoc(doc(db, 'users', emailnsw));
         if (!noteSnapshot.exists()) {
           const email = session.user.email;
           const displayName = session.user.name;
@@ -51,10 +64,10 @@ export default NextAuth({
           const biografy = ""
           const banner = ""
           const biolink = ""
-          const tag = session.user.tag;
+          const tag = session.user.emailnsw;
     
    
-          const docRef = doc(db, "users", session.user.tag);
+          const docRef = doc(db, "users", emailnsw);
           const payload = { email, displayName, lastSeen, uid, picture, biografy, banner, biolink, tag }
           await setDoc(docRef, payload);
 
