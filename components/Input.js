@@ -191,7 +191,7 @@ function Input() {
             </div>
             <button
               className="bg-[#ffffff] text-black rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#d6d6d6] disabled:hover:bg-[#ffffff] disabled:opacity-50 disabled:cursor-default"
-              disabled={!input && !selectedFile}
+              disabled={session.user.tag == null || !input && !selectedFile}
               onClick={sendPost}
             >
               Post

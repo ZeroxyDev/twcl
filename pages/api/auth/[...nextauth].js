@@ -26,10 +26,10 @@ export default NextAuth({
   },
     
     async session({ session, token }) {
-      session.user.tag = session.user.name
+/*       session.user.tag = session.user.name
         .split(" ")
         .join("")
-        .toLocaleLowerCase();
+        .toLocaleLowerCase(); */
 
       session.user.uid = token.sub;
 
