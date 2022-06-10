@@ -8,8 +8,9 @@ import Modal from "../components/Modal";
 import { modalState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
 import Register from "../components/Register";
+import Header from "../components/Header";
 
-export default function Home({ trendingResults, followResults, providers }) {
+export default function Home({ trendingResults, followResults, providers, articles }) {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
 
@@ -18,16 +19,18 @@ export default function Home({ trendingResults, followResults, providers }) {
   return (
     <div className="">
       <Head>
-        <title>Home / Twitter</title>
+        <title>Home / LoneNet</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="bg-black min-h-screen flex max-w-[1500px] mx-auto">
+      <Header />
+
+      <main className="bg-[#000] sm:min-h-[100vh] flex max-w-[1500px] mx-auto">
         <Sidebar />
         <Feed />
         <Widgets
-          trendingResults={trendingResults}
           followResults={followResults}
+/*           articles={articles} */
         />
 
         {isOpen && <Modal />}
@@ -37,21 +40,25 @@ export default function Home({ trendingResults, followResults, providers }) {
 }
 
 export async function getServerSideProps(context) {
-  const trendingResults = await fetch("https://jsonkeeper.com/b/7CGL").then(
-    (res) => res.json()
-  );
-  const followResults = await fetch("https://jsonkeeper.com/b/WWMJ").then(
-    (res) => res.json()
-  );
   const providers = await getProviders();
   const session = await getSession(context);
 
+  const followResults = await fetch("https://jsonkeeper.com/b/WWMJ").then(
+    (res) => res.json()
+  );
+  
+
+  // Get Google News API
+  const results = await fetch(
+    `https://newsapi.org/v2/top-headlines?country=us&apiKey=007dcd42690848ef90a5a3e94774f5d9`
+  ).then((res) => res.json());
+
   return {
     props: {
-      trendingResults,
+      session,
+/*       articles: results.articles, */
       followResults,
       providers,
-      session,
     },
   };
 }

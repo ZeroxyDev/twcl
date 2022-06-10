@@ -13,7 +13,6 @@ import {
   doc,
   serverTimestamp,
   updateDoc,
-  setDoc,
 } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { signOut, useSession } from "next-auth/react";
@@ -41,7 +40,7 @@ function Verified(){
   }
 } */
 
-function Input() {
+function InputProfile() {
   const { data: session } = useSession();
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,17 +52,7 @@ function Input() {
     if (loading) return;
     setLoading(true);
 
-    const docRef = await addDoc(collection(db, "posts"), {
-      id: session.user.uid,
-      username: session.user.name,
-      userImg: session.user.image,
-      tag: session.user.tag,
-      text: input,
-      timestamp: serverTimestamp(),
-      /* verifiedtext: veri2, */
-    });
-
-    const docRefprofile = await setDoc(doc(db, "posts", session.user.uid, "userposts", docRef.id), {
+    const docRef = await addDoc(collection(db, "posts", session.user.uid, "userposts"), {
       id: session.user.uid,
       username: session.user.name,
       userImg: session.user.image,
@@ -206,4 +195,4 @@ function Input() {
   );
 }
 
-export default Input;
+export default InputProfile;

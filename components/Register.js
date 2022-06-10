@@ -10,8 +10,18 @@ import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
 import Link from "next/link";
+import { signup } from "../firebase"
+import { useRef } from "react";
 
 function Register({ providers }) {
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  async function handleSignup(){
+    await signup(emailRef.current.value, passwordRef.current.value);
+  }
+
   return (
     
     <div className="flex flex-col items-center h-[65vh] sm:h-[75vh] bg-black mt-[15vh] sm:mt-[25vh]">
@@ -28,10 +38,10 @@ function Register({ providers }) {
             <div className=" text-black absolute -mt-5 text-center">
               <h1 className=" text-2xl font-medium mb-2">REGISTER</h1>
               <form className="text-white text-center mt-[20px]">   
-              <input className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Email" type="email"></input>     
+              <input ref={emailRef} className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Email" type="email"></input>     
               <input className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Username"></input>
-              <input className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Password" type="password"></input>
-              <button className="text-center m-auto mt-5 block py-1 bg-black w-[120px] text-white rounded-md transition-padding duration-300 ease-in-out hover:w-[180px]">REGISTER</button>
+              <input ref={passwordRef} className="text-center w-[150px] m-auto block my-3 px-2 rounded-3xl bg-black py-3 transition-padding duration-300 ease-in-out hover:w-[237px]" placeholder="Password" type="password"></input>
+              <button onClick={handleSignup} className="text-center m-auto mt-5 block py-1 bg-black w-[120px] text-white rounded-md transition-padding duration-300 ease-in-out hover:w-[180px]">REGISTER</button>
               <p className="text-black block text-xs mt-4">You have an account? - <Link href="/"><u className="inline-block font-semibold cursor-pointer">Login</u></Link></p>
               <div className="flex justify-center items-center mt-7">
                 <p className="inline-block text-black font-bold max-w-[30px] absolute text-center">OR</p>

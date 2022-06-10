@@ -76,7 +76,7 @@ function Modal() {
     setIsOpen(false);
     setComment("");
 
-    router.push(`/${postId}`);
+    router.push(`/post/${postId}`);
   };
 
   return (
@@ -151,7 +151,7 @@ function Modal() {
                       <textarea
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
-                        placeholder="Tweet your reply"
+                        placeholder="Post your reply"
                         rows="2"
                         className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px]"
                       />

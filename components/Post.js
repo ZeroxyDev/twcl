@@ -147,6 +147,7 @@ function checkVerified(){
     return (veri3);
   }
 }
+
   
 
   useEffect(
@@ -187,16 +188,17 @@ function checkVerified(){
     }
   };
 
+
   return (
     <div
       className="flex-col p-3 max-w-[1024px] flex cursor-pointer border-b border-gray-700"
-      onClick={() => router.push(`/${id}`)}
+      onClick={() => router.push(`/post/${id}`)}
     >
       {!postPage && (
         <img
           src={post?.userImg}
           alt=""
-          className="h-11 w-11 rounded-full mr-4"
+          className="h-11 w-11 rounded-full mr-4 object-cover "
         />
       )}
       <div className="flex flex-col">
@@ -205,7 +207,7 @@ function checkVerified(){
             <img
               src={post?.userImg}
               alt="Profile Pic"
-              className="h-11 w-11 rounded-full mr-4"
+              className="h-11 w-11 rounded-full mr-4 object-cover "
             />
           )}
           <div className="text-[#6e767d] text-ellipsis w-full">
@@ -214,6 +216,7 @@ function checkVerified(){
                 className={`inline-block font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline ${imgnotext}  ${
                   !postPage && `${imgnotextfront} inline-block max-w-[370px]`
                 }`}
+                onClick={() => router.push(`${post?.tag}`)}
               >
                 {post?.username} {veri2}
                 
@@ -277,6 +280,7 @@ function checkVerified(){
               onClick={(e) => {
                 e.stopPropagation();
                 deleteDoc(doc(db, "posts", id));
+                deleteDoc(doc(db, "posts", session.user.uid, "userposts", id));
                 router.push("/");
               }}
             >

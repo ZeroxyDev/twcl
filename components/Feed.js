@@ -25,6 +25,7 @@ function Feed() {
   // }, [db]);
 
   // CLEAN
+  
   useEffect(
     () =>
       onSnapshot(
@@ -35,6 +36,19 @@ function Feed() {
       ),
     [db]
   );
+
+/*   useEffect(
+    () =>
+      onSnapshot(collection(db, "users"), (snapshot) =>
+        setUsers(snapshot.docs.map((doc) => doc.data().uid))
+      ),
+    [db]
+  );
+
+  let usersToString = JSON.stringify(users).split(" [],").join("").toLocaleLowerCase();
+
+
+  console.log(usersToString); */
 
   return (
     <div className="flex-grow border-l border-r border-gray-700 max-w-2x3 sm:ml-[73px] xl:ml-[370px]">
