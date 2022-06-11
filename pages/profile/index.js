@@ -181,7 +181,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
           
           <div className="inline-flex items-center max-w-[240px]">
           <BookmarkAltIcon className="h-5 ml-4 inline-flex items-center  text-[#6e767d]" />
-          <p className="text-[#6e767d] ml-2"> <Moment format="D MMM YYYY" withTitle element="span">{session.user.firstseen}</Moment></p>
+          <p className="text-[#6e767d] ml-2"> Joined <Moment format="D MMM YYYY" withTitle element="span">{session.user.firstseen}</Moment></p>
           </div>
 
           <div>
