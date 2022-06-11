@@ -62,7 +62,7 @@ export function useAuth(){
 
 // Storage
 
-export async function upload(file, session, setLoading, setPhotoURL){
+export async function upload(file, session, setLoading){
 
   var userdataRef = doc(db, "users", session.user.tag);
   const docSnap = await getDoc(userdataRef);

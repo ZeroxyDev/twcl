@@ -41,27 +41,39 @@ function EditProfile() {
 
   //upload photo
   const [photo, setPhoto] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [photoURL, setPhotoURL] = useState();
   const [imagesrc, setImagesrc] = useState(session.user.image);
+  
+  setTimeout(function() {
+    setLoading(false)
+}, 3000);
 
   if(photo == null){
     setPhoto(session.user.image)
   }
 
   function handleChange(e) {
+    setLoading(true)
     if (e.target.files[0]) {
       setPhoto(e.target.files[0])
       setImagesrc(URL.createObjectURL(e.target.files[0]))
     }
+    setTimeout(function() {
+      setLoading(false)
+  }, 3000);
   }
 
   function handleClick() {
-    if(photo == null){
-      setPhoto(session.user.picture)
-    }
-    upload(photo, session, setLoading);
+    setTimeout(function() {
+      if(photo == null){
+        setPhoto(session.user.picture)
+      }
+      upload(photo, session, setLoading);
+  }, 3000);
+
   }
+  
 
    //fin upload photo
 
@@ -75,17 +87,24 @@ function EditProfile() {
   }
 
   function handleChangeBanner(e) {
+    setLoading(true)
     if (e.target.files[0]) {
       setBanner(e.target.files[0])
       setBannersrc(URL.createObjectURL(e.target.files[0]))
     }
+    setTimeout(function() {
+      setLoading(false)
+  }, 3000);
   }
 
   function handleClickBanner() {
-    if(banner == null){
-      setBanner(session.user.banner)
-    }
-    uploadBanner(banner, session, setLoading);
+    setTimeout(function() {
+      if(banner == null){
+        setBanner(session.user.banner)
+      }
+      uploadBanner(banner, session, setLoading);
+  }, 3000);
+   
   }
 
    //fin upload photo
@@ -168,6 +187,10 @@ function EditProfile() {
     const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
     await setDoc(docRef, payload);
 
+      handleClick();
+
+      handleClickBanner();
+
     setIseOpen(false);
 
     router.push(`/profile`);
@@ -208,13 +231,12 @@ function EditProfile() {
                 </div>
                 <p className="text-white font-bold text-lg ml-2">Edit Profile</p>
                 <button
+                 disabled={loading}
                  className="bg-[#ffffff] right-0 mr-4 absolute text-black rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#ececec] disabled:opacity-50 disabled:cursor-default"
                  type="submit"
                  onClick={(e) => {
                   e.stopPropagation();
                   changeProfile();
-                  handleClick();
-                  handleClickBanner();
                 }} > Save </button>
               </div>
 
