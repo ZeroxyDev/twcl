@@ -34,7 +34,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
     
     const email = session.user.email;
     const displayName = session.user.name;
-    const lastSeen = docSnap.data().lastSeen;
+    const firstSeen = docSnap.data().firstSeen;
     const uid = session.user.uid;
     const picture = session.user.image;
     const biografy = bioinput.current.value;
@@ -44,7 +44,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
 
 
     const docRef = doc(db, "users", session.user.tag);
-    const payload = { email, displayName, lastSeen, uid, picture, biografy, banner, biolink, tag }
+    const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
     await setDoc(docRef, payload);
 
   }
@@ -56,7 +56,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
     
     const email = session.user.email;
     const displayName = session.user.name;
-    const lastSeen = docSnap.data().lastSeen;
+    const firstSeen = docSnap.data().firstSeen;
     const uid = session.user.uid;
     const picture = session.user.image;
     const biografy = "I like cheese! is a joke...";
@@ -66,7 +66,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
 
 
     const docRef = doc(db, "users", session.user.tag);
-    const payload = { email, displayName, lastSeen, uid, picture, biografy, banner, biolink, tag }
+    const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
     await setDoc(docRef, payload);
   }
 
@@ -134,7 +134,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
           <div className="sm:h-[200px] h-[150px] overflow-hidden w-full flex relative">          
             <img
             src={session.user.banner}
-            className="xl:h-[560px] sm:h-[800px] h-[540px] object-cover flex"
+            className="xl:h-[560px] sm:h-[800px] h-[540px] xl:w-[700px] sm:w-[1100px] object-cover flex"
         />
         </div>
 
@@ -181,7 +181,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
           
           <div className="inline-flex items-center max-w-[240px]">
           <BookmarkAltIcon className="h-5 ml-4 inline-flex items-center  text-[#6e767d]" />
-          <p className="text-[#6e767d] ml-2"> <Moment format="D MMM YYYY" withTitle element="span">{session.user.lastseen}</Moment></p>
+          <p className="text-[#6e767d] ml-2"> <Moment format="D MMM YYYY" withTitle element="span">{session.user.firstseen}</Moment></p>
           </div>
 
           <div>

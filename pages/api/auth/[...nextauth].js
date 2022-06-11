@@ -58,7 +58,7 @@ export default NextAuth({
         if (!noteSnapshot.exists()) {
           const email = session.user.email;
           const displayName = session.user.name;
-          const lastSeen = serverTimestamp();
+          const firstSeen = serverTimestamp();
           const uid = session.user.uid;
           const picture = session.user.image;
           const biografy = ""
@@ -68,7 +68,7 @@ export default NextAuth({
     
    
           const docRef = doc(db, "users", emailnsw);
-          const payload = { email, displayName, lastSeen, uid, picture, biografy, banner, biolink, tag }
+          const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
           await setDoc(docRef, payload);
 
         }
@@ -77,7 +77,7 @@ export default NextAuth({
           session.user.email = docSnap.data().email;
           session.user.image = docSnap.data().picture;
           session.user.bio = docSnap.data().biografy;
-          session.user.lastseen = docSnap.data().lastSeen.toDate();
+          session.user.firstseen = docSnap.data().firstSeen.toDate();
           session.user.banner = docSnap.data().banner;
           session.user.biolink = docSnap.data().biolink;
           session.user.tag = docSnap.data().tag;

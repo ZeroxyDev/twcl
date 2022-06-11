@@ -20,7 +20,7 @@ function Widgets({ articles, followResults}) {
         </div>
       </div> 
 
-      <div className="text-[#d9d9d9] space-y-3 bg-[#15181c] pt-2 pb-2 rounded-xl w-11/12 xl:w-9/12 ">
+      <div className="text-[#d9d9d9] space-y-3 bg-[#15181c] pt-2 pb-2 sm: mr-[200px] rounded-xl w-11/12 xl:w-9/12 ">
         <h4 className="font-bold text-xl px-4">What's happening</h4>
 {/*         {articles.slice(0, 5).map((article) => (
        <div

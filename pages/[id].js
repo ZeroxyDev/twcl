@@ -130,7 +130,7 @@ import {
           <div className="sm:h-[200px] h-[150px] overflow-hidden w-full flex relative">          
             <img
             src={profile?.banner}
-            className="xl:h-[560px] sm:h-[800px] h-[540px] object-cover flex"
+            className="xl:h-[560px] sm:h-[800px] h-[540px] xl:w-[700px] sm:w-[1100px] object-cover flex"
         />
         </div>
 
@@ -167,7 +167,7 @@ import {
           
           <div className="inline-flex items-center max-w-[240px]">
           <BookmarkAltIcon className="h-5 ml-4 inline-flex items-center  text-[#6e767d]" />
-          <p className="text-[#6e767d] ml-2"> <Moment format="D MMM YYYY" withTitle>{profile?.lastSeen.toDate()}</Moment></p>
+          <p className="text-[#6e767d] ml-2"> Joined <Moment format="D MMM YYYY" withTitle>{profile?.firstSeen.toDate()}</Moment></p>
           </div>
 
           <div>

@@ -38,7 +38,7 @@ function Register({ providers }) {
       currentUser.email = docSnap.data().email;
       currentUser.pic = docSnap.data().picture;
       currentUser.bio = docSnap.data().biografy;
-      currentUser.lastseen = docSnap.data().lastSeen.toDate();
+      currentUser.firstseen = docSnap.data().firstSeen.toDate();
       currentUser.banner = docSnap.data().banner;
       currentUser.link = docSnap.data().biolink;
       currentUser.tag = docSnap.data().tag;
@@ -67,7 +67,7 @@ function Register({ providers }) {
         currentUser.email = docSnap.data().email;
         currentUser.pic = docSnap.data().picture;
         currentUser.bio = docSnap.data().biografy;
-        currentUser.lastseen = docSnap.data().lastSeen.toDate();
+        currentUser.firstseen = docSnap.data().firstSeen.toDate();
         currentUser.banner = docSnap.data().banner;
         currentUser.link = docSnap.data().biolink;
         currentUser.tag = docSnap.data().tag;
@@ -91,7 +91,7 @@ function Register({ providers }) {
     
     const email = currentUser.email;
     const displayName = usernameRef.current.value;
-    const lastSeen = serverTimestamp();
+    const firstSeen = serverTimestamp();
     const uid = currentUser.uid;
     const picture =  currentUser.pic;
     const biografy = currentUser.bio;
@@ -101,7 +101,7 @@ function Register({ providers }) {
 
 
     const docRef = doc(db, "users", currentUser?.email);
-    const payload = { email, displayName, lastSeen, uid, picture, biografy, banner, biolink, tag }
+    const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
     await setDoc(docRef, payload);
 
     currentUser.photoURL = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.drupal.org%2Ffiles%2Fprofile_default.jpg&f=1&nofb=1";
