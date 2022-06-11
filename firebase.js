@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApp, getApps } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState, useEffect } from "react";
@@ -62,17 +62,61 @@ export function useAuth(){
 
 // Storage
 
-export async function upload(file, currentUser, setLoading){
+export async function upload(file, session, setLoading, setPhotoURL){
 
-  const fileRef = ref(storage, currentUser.uid + "png");
+  var userdataRef = doc(db, "users", session.user.tag);
+  const docSnap = await getDoc(userdataRef);
+
+  const fileRef = ref(storage, session.user.uid + "png");
 
  setLoading(true);
   const snapshot = await uploadBytes(fileRef, file);
   const photoURL = await getDownloadURL(fileRef);
 
-  updateProfile(currentUser, {photoURL});
+  const email = session.user.email;
+  const displayName = session.user.name;
+  const firstSeen = docSnap.data().firstSeen;
+  const uid = session.user.uid;
+  const picture = photoURL;
+  const biografy = session.user.bio;
+  const banner = session.user.banner;
+  const biolink = session.user.biolink;
+  const tag = session.user.tag;
+
+  const docRef = doc(db, "users", session.user.tag);
+  const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
+  await setDoc(docRef, payload);
+
  setLoading(false);
- alert("uploaded")
+
+}
+
+export async function uploadBanner(file, session, setLoading){
+
+  var userdataRef = doc(db, "users", session.user.tag);
+  const docSnap = await getDoc(userdataRef);
+
+  const fileRef = ref(storage, session.user.uid + "bannerpng");
+
+ setLoading(true);
+  const snapshot = await uploadBytes(fileRef, file);
+  const bannerURL = await getDownloadURL(fileRef);
+
+  const email = session.user.email;
+  const displayName = session.user.name;
+  const firstSeen = docSnap.data().firstSeen;
+  const uid = session.user.uid;
+  const picture = session.user.image;
+  const biografy = session.user.bio;
+  const banner = bannerURL;
+  const biolink = session.user.biolink;
+  const tag = session.user.tag;
+
+  const docRef = doc(db, "users", session.user.tag);
+  const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
+  await setDoc(docRef, payload);
+
+ setLoading(false);
 
 }
 

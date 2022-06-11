@@ -3,7 +3,7 @@ import { getProviders, getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
 import { useRecoilState } from "recoil";
-import { modalState } from "../../atoms/modalAtom";
+import { modalState, editState, postIdState } from "../../atoms/modalAtom";
 import Modal from "../../components/Modal";
 import Sidebar from "../../components/Sidebar";
 import Widgets from "../../components/Widgets";
@@ -19,6 +19,7 @@ import { LinkIcon, BookmarkAltIcon } from "@heroicons/react/outline";
 import { signup, useAuth, logout } from "../../firebase"
 import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query } from "firebase/firestore"
 import Moment from "react-moment";
+import EditProfile from "../../components/EditProfile";
 
 
 function Profile({ trendingResults, followResults, providers, articles }) {
@@ -75,11 +76,13 @@ function Profile({ trendingResults, followResults, providers, articles }) {
   
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
+  const [iseOpen, setIseOpen] = useRecoilState(editState);
   const [post, setPost] = useState();
   const [comments, setComments] = useState([]);
   const router = useRouter();
   const { id } = router.query;
   const [posts, setPosts] = useState([]);
+  const [postId, setPostId] = useRecoilState(postIdState);
 
 
   if (!session) return <Login providers={providers} />;
@@ -146,7 +149,14 @@ function Profile({ trendingResults, followResults, providers, articles }) {
         <div className="flex justify-end mr-3 mt-2">
         <div className="top-0 py-1.5 z-50 w-[120px] ">
         <div className="flex items-center justify-center py-[18px] border-gray border-[0.1px] p-3 rounded-full relative ">
-          <button onClick={changeBio}
+          <button 
+          
+          onClick={(e) => {
+            e.stopPropagation();
+            setPostId(id);
+            setIseOpen(true);
+          }}
+
             className="bg-transparent inline-block placeholder-gray-500 font-bold outline-none text-[#d9d9d9] absolute inset-0 text-center border border-transparent w-full focus:border-[#ffffff] rounded-full focus:bg-black focus:shadow-lg"
 
           >
@@ -222,6 +232,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
           followResults={followResults}
 /*           articles={articles} */
         />
+        {iseOpen && <EditProfile />}
       </main>
     </div>
   );

@@ -14,3 +14,8 @@ export const profileIdState = atom({
   key: "profileIdState",
   default: "",
 });
+
+export const editState = atom({
+  key: "editState",
+  default: false,
+});

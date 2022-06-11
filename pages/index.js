@@ -9,6 +9,7 @@ import { modalState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
 import Register from "../components/Register";
 import Header from "../components/Header";
+import EditProfile from "../components/EditProfile";
 
 export default function Home({ trendingResults, followResults, providers, articles }) {
   const { data: session } = useSession();
