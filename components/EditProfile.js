@@ -3,7 +3,7 @@ import { modalState, postIdState, editState } from "../atoms/modalAtom";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState, useRef } from "react";
 import {
-  setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query
+  setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query, updateDoc
 } from "@firebase/firestore";
 import { db, upload, uploadBanner } from "../firebase";
 import { useSession } from "next-auth/react";
@@ -49,10 +49,6 @@ function EditProfile() {
     setLoading(false)
 }, 3000);
 
-  if(photo == null){
-    setPhoto(session.user.image)
-  }
-
   function handleChange(e) {
     setLoading(true)
     if (e.target.files[0]) {
@@ -66,7 +62,7 @@ function EditProfile() {
 
   function handleClick() {
     setTimeout(function() {
-      if(photo == null){
+      if(photo == null || photo == ""){
         setPhoto(session.user.picture)
       }
       else{
@@ -85,9 +81,6 @@ function EditProfile() {
   const [bannerURL, setBannerURL] = useState();
   const [bannersrc, setBannersrc] = useState(session.user.banner);
 
-  if(banner == null){
-    setBanner(session.user.banner)
-  }
 
   function handleChangeBanner(e) {
     setLoading(true)
@@ -102,7 +95,7 @@ function EditProfile() {
 
   function handleClickBanner() {
     setTimeout(function() {
-      if(banner == null){
+      if(banner == null || banner == ""){
         setBanner(session.user.banner)
       }
       else{
@@ -142,10 +135,6 @@ function EditProfile() {
   };
 
   async function changeProfile(){
-    var userdataRef = doc(db, "users", session.user.tag);
-    const docSnap = await getDoc(userdataRef);
-
-    
 
     function biock(){
 
@@ -179,25 +168,13 @@ function EditProfile() {
       }
   
     }
-    
-    const email = session.user.email;
-    const displayName = nameck();
-    const firstSeen = docSnap.data().firstSeen;
-    const uid = session.user.uid;
-    const picture = docSnap.data().picture;
-    const biografy = biock();
-    const banner = docSnap.data().banner;
-    const biolink = webck();
-    const tag = session.user.tag;
 
-    const imageRef = ref(db, `users/${session.user.tag}/picture`);
-    const bannerRef = ref(db, `users/${session.user.tag}/banner`);
-    const nameRef = ref(db, `users/${session.user.tag}/name`);
-    const websiteRef = ref(db, `users/${session.user.tag}/biolink`);
-    const bioRef = ref(db, `users/${session.user.tag}/biografy`);
-    const payloadmedia = { picture, banner, displayName, biografy, biolink }
-    await setDoc(nameRef, websiteRef, bioRef,  payloadmedia);
-
+      await updateDoc(doc(db, "users", session.user.tag), {
+        displayName: nameck(),
+        biolink: webck(),
+        biografy: biock(),
+      });
+  
 
 /*     const docRef = doc(db, "users", session.user.tag);
     const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
@@ -206,6 +183,7 @@ function EditProfile() {
       handleClick();
 
       handleClickBanner();
+
 
     setIseOpen(false);
 

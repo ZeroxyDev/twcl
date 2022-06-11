@@ -64,15 +64,12 @@ export function useAuth(){
 
 export async function upload(file, session, setLoading){
 
-  var userdataRef = doc(db, "users", session.user.tag);
-  const docSnap = await getDoc(userdataRef);
 
   const fileRef = ref(storage, session.user.uid + "png");
 
  setLoading(true);
   const snapshot = await uploadBytes(fileRef, file);
   const photoURL = await getDownloadURL(fileRef);
-
 
   await updateDoc(doc(db, "users", session.user.tag), {
     picture: photoURL,
@@ -86,8 +83,6 @@ export async function upload(file, session, setLoading){
 
 export async function uploadBanner(file, session, setLoading){
 
-  var userdataRef = doc(db, "users", session.user.tag);
-  const docSnap = await getDoc(userdataRef);
 
   const fileRef = ref(storage, session.user.uid + "bannerpng");
 
