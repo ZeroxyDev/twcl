@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApp, getApps } from "firebase/app";
-import { getFirestore, setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query } from "firebase/firestore";
+import { getFirestore, setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query, updateDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState, useEffect } from "react";
@@ -73,19 +73,12 @@ export async function upload(file, session, setLoading){
   const snapshot = await uploadBytes(fileRef, file);
   const photoURL = await getDownloadURL(fileRef);
 
-  const email = session.user.email;
-  const displayName = session.user.name;
-  const firstSeen = docSnap.data().firstSeen;
-  const uid = session.user.uid;
-  const picture = photoURL;
-  const biografy = session.user.bio;
-  const banner = session.user.banner;
-  const biolink = session.user.biolink;
-  const tag = session.user.tag;
 
-  const docRef = doc(db, "users", session.user.tag);
-  const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
-  await setDoc(docRef, payload);
+  await updateDoc(doc(db, "users", session.user.tag), {
+    picture: photoURL,
+  });
+
+
 
  setLoading(false);
 
@@ -102,19 +95,9 @@ export async function uploadBanner(file, session, setLoading){
   const snapshot = await uploadBytes(fileRef, file);
   const bannerURL = await getDownloadURL(fileRef);
 
-  const email = session.user.email;
-  const displayName = session.user.name;
-  const firstSeen = docSnap.data().firstSeen;
-  const uid = session.user.uid;
-  const picture = session.user.image;
-  const biografy = session.user.bio;
-  const banner = bannerURL;
-  const biolink = session.user.biolink;
-  const tag = session.user.tag;
-
-  const docRef = doc(db, "users", session.user.tag);
-  const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
-  await setDoc(docRef, payload);
+  await updateDoc(doc(db, "users", session.user.tag), {
+    banner: bannerURL,
+  });
 
  setLoading(false);
 

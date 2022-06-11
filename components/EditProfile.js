@@ -69,7 +69,10 @@ function EditProfile() {
       if(photo == null){
         setPhoto(session.user.picture)
       }
-      upload(photo, session, setLoading);
+      else{
+        upload(photo, session, setLoading);
+      }
+
   }, 3000);
 
   }
@@ -102,7 +105,10 @@ function EditProfile() {
       if(banner == null){
         setBanner(session.user.banner)
       }
-      uploadBanner(banner, session, setLoading);
+      else{
+        uploadBanner(banner, session, setLoading);
+      }
+
   }, 3000);
    
   }
@@ -138,6 +144,7 @@ function EditProfile() {
   async function changeProfile(){
     var userdataRef = doc(db, "users", session.user.tag);
     const docSnap = await getDoc(userdataRef);
+
     
 
     function biock(){
@@ -177,15 +184,24 @@ function EditProfile() {
     const displayName = nameck();
     const firstSeen = docSnap.data().firstSeen;
     const uid = session.user.uid;
-    const picture = session.user.image;
+    const picture = docSnap.data().picture;
     const biografy = biock();
-    const banner = session.user.banner;
+    const banner = docSnap.data().banner;
     const biolink = webck();
     const tag = session.user.tag;
 
-    const docRef = doc(db, "users", session.user.tag);
+    const imageRef = ref(db, `users/${session.user.tag}/picture`);
+    const bannerRef = ref(db, `users/${session.user.tag}/banner`);
+    const nameRef = ref(db, `users/${session.user.tag}/name`);
+    const websiteRef = ref(db, `users/${session.user.tag}/biolink`);
+    const bioRef = ref(db, `users/${session.user.tag}/biografy`);
+    const payloadmedia = { picture, banner, displayName, biografy, biolink }
+    await setDoc(nameRef, websiteRef, bioRef,  payloadmedia);
+
+
+/*     const docRef = doc(db, "users", session.user.tag);
     const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
-    await setDoc(docRef, payload);
+    await setDoc(docRef, payload); */
 
       handleClick();
 

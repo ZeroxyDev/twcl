@@ -51,24 +51,12 @@ function Profile({ trendingResults, followResults, providers, articles }) {
   }
 
   async function changeBio(){
-    var userdataRef = doc(db, "users", session.user.tag);
-    const docSnap = await getDoc(userdataRef);
 
-    
-    const email = session.user.email;
-    const displayName = session.user.name;
-    const firstSeen = docSnap.data().firstSeen;
-    const uid = session.user.uid;
-    const picture = session.user.image;
-    const biografy = "I like cheese! is a joke...";
-    const banner = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblueeyesandbluebonnets.com%2Fwp-content%2Fuploads%2F2020%2F12%2F9691c1d64dceadee032af0a3b787c084-1024x683.jpg";
-    const biolink = "hi.world";
-    const tag = session.user.tag;
-
-
-    const docRef = doc(db, "users", session.user.tag);
-    const payload = { email, displayName, firstSeen, uid, picture, biografy, banner, biolink, tag }
-    await setDoc(docRef, payload);
+    await updateDoc(doc(db, "users", session.user.tag), {
+      displayName: session.user.name,
+      biolink: "test",
+      biografy: session.user.bio,
+    });
   }
 
 
