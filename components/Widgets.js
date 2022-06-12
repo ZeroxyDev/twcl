@@ -18,11 +18,38 @@ function Widgets({ articles, followResults}) {
             placeholder="Search"
           />
         </div>
+        <div className="text-[#d9d9d9] space-y-3 bg-[#15181c] pt-2 pb-2 sm: mr-[200px] rounded-xl mt-4 w-full">
+        <h4 className="font-bold text-xl px-4">What's happening</h4>
+        </div>
+        <div className="text-[#d9d9d9] space-y-3 bg-[#15181c] py-2 rounded-xl w-full mt-4 object-cover overflow-hidden">
+        <div className="dark:bg-[#1D2226] w-12/12 h-64 py-1.5 px-2.5 rounded-xl sticky border border-none dark:border-none object-cover">
+        <div className="relative w-full h-full">
+          <Image
+            src="https://rb.gy/mekybv"
+            layout="fill"
+            objectFit="cover"
+            priority
+            className="rounded-xl"
+          />
+        </div>
+
+
+
+
+
+{/*         <h4 className="font-bold text-sm px-4 relative ml-[260px] inline-flex">Ads <InfoRoundedIcon className="h-4 w-4 mt-[2px] ml-[2px] inline-flex" /></h4> */}
+      </div>
+        
+{/*         <button className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-3 cursor-pointer transition duration-200 ease-out flex items-center justify-between w-full text-[#1d9bf0] font-light">
+          Show more
+        </button> */}
+      </div>
+
       </div> 
 
-      <div className="text-[#d9d9d9] space-y-3 bg-[#15181c] pt-2 pb-2 sm: mr-[200px] rounded-xl w-11/12 xl:w-9/12 ">
+{/*       <div className="text-[#d9d9d9] space-y-3 bg-[#15181c] pt-2 pb-2 sm: mr-[200px] rounded-xl w-11/12 xl:w-9/12 ">
         <h4 className="font-bold text-xl px-4">What's happening</h4>
-{/*         {articles.slice(0, 5).map((article) => (
+      {articles.slice(0, 5).map((article) => (
        <div
        key={article.url}
        className="flex space-x-2 items-center cursor-pointer hover:bg-black/10 dark:hover:bg-black/20 px-2.5 py-1"
@@ -38,32 +65,14 @@ function Widgets({ articles, followResults}) {
          />
       </div>
   </div>
-  ))} */}
-{/*         <button className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-3 cursor-pointer transition duration-200 ease-out flex items-center justify-between w-full text-[#ffffff] font-light">
+  ))} 
+        <button className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-3 cursor-pointer transition duration-200 ease-out flex items-center justify-between w-full text-[#ffffff] font-light">
           Show more
-        </button> */}
-      </div>
-
-      <div className="text-[#d9d9d9] space-y-3 bg-[#15181c] py-2 rounded-xl w-11/12 xl:w-9/12 object-cover overflow-hidden">
-        <div className="dark:bg-[#1D2226] w-12/12 h-64 py-1.5 px-2.5 rounded-xl sticky border border-none dark:border-none object-cover">
-        <div className="relative w-full h-full">
-          <Image
-            src="https://rb.gy/mekybv"
-            layout="fill"
-            objectFit="cover"
-            priority
-            className="rounded-xl"
-          />
-        </div>
-{/*         <h4 className="font-bold text-sm px-4 relative ml-[260px] inline-flex">Ads <InfoRoundedIcon className="h-4 w-4 mt-[2px] ml-[2px] inline-flex" /></h4> */}
-      </div>
-        
-{/*         <button className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-3 cursor-pointer transition duration-200 ease-out flex items-center justify-between w-full text-[#1d9bf0] font-light">
-          Show more
-        </button> */}
-      </div>
+        </button> 
+      </div> */}
 
     </div>
+
   );
   
 }

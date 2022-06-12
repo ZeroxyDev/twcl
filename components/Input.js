@@ -84,6 +84,18 @@ function Input() {
       });
     }
 
+    
+    const imageRefprofile = ref(storage, `posts/${docRef.id}/image`);
+
+    if (selectedFile) {
+      await uploadString(imageRefprofile, selectedFile, "data_url").then(async () => {
+        const downloadURL = await getDownloadURL(imageRefprofile);
+        await updateDoc(doc(db, "posts", session.user.uid, "userposts", docRef.id), {
+          image: downloadURL,
+        });
+      });
+    }
+
     setLoading(false);
     setInput("");
     setSelectedFile(null);
