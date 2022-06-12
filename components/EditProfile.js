@@ -309,7 +309,7 @@ function EditProfile() {
                         type="hidden"
                         placeholder="Edit website"
                         rows="1"
-                        className="bg-transparent ml-2 py-2 resize-none flex-wrap outline-none overflow-hidden text-[#1d9bf0] text-lg placeholder-gray-500 tracking-wide w-full min-h-[30px]"
+                        className="bg-transparent ml-2 py-2 resize-none flex-wrap outline-none overflow-hidden text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[30px]"
                       />
                       </div>
                       <div className="flex pt-2.5">
