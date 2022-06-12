@@ -65,16 +65,7 @@ function Modal() {
   const sendComment = async (e) => {
     e.preventDefault();
 
-    await addDoc(collection(db, "posts", postId, "comments"), {
-      comment: comment,
-      username: session.user.name,
-      tag: session.user.tag,
-      userImg: session.user.image,
-      timestamp: serverTimestamp(),
-      id: session.user.uid,
-    });
-
-    await addDoc(collection(db, "posts", session.user.uid, "comments"), {
+    const docRef = await addDoc(collection(db, "posts", postId, "comments"), {
       comment: comment,
       username: session.user.name,
       tag: session.user.tag,
@@ -82,7 +73,19 @@ function Modal() {
       timestamp: serverTimestamp(),
       id: session.user.uid,
       replied: postId,
-      repliedto: post?.username,
+      repliedto: post?.tag,
+    });
+
+    const docRefprofile = await setDoc(doc(db, "posts", session.user.uid, "comments", docRef.id), {
+      username: session.user.name,
+      tag: session.user.tag,
+      userImg: session.user.image,
+      timestamp: serverTimestamp(),
+      id: session.user.uid,
+      replied: postId,
+      repliedto: post?.tag,
+      comment: comment,
+      commmentid: docRef.id,
     });
 
     setIsOpen(false);

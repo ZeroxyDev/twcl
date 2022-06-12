@@ -10,6 +10,11 @@ export const postIdState = atom({
   default: "",
 });
 
+export const commentIdState = atom({
+  key: "commentIdState",
+  default: "",
+});
+
 export const profileIdState = atom({
   key: "profileIdState",
   default: "",

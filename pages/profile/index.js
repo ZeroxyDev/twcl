@@ -101,6 +101,17 @@ function Profile({ trendingResults, followResults, providers, articles }) {
     [db]
   );
 
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "posts", session.user.uid, "comments"), orderBy("timestamp", "desc")),
+        (snapshot) => {
+          setComments(snapshot.docs);
+        }
+      ),
+    [db]
+  );
+
   const yesbio = "h-5 ml-4 inline-flex items-center  text-[#6e767d]"
 
   const nobio = "h-5 ml-1 inline-flex items-center  text-[#6e767d]"
@@ -257,6 +268,17 @@ function Profile({ trendingResults, followResults, providers, articles }) {
         {posts.map((post) => (
           <Post key={post.id} id={post.id} post={post.data()} />
         ))}
+        {comments.length > 0 && (
+            <div className="pb-72">
+              {comments.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  id={comment.id}
+                  comment={comment.data()}
+                />
+              ))}
+            </div>
+          )}
       </div>
         </div>
 

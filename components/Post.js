@@ -233,7 +233,11 @@ function checkVerified(){
   return (
     <div
       className="flex-col p-3 max-w-[1024px] flex cursor-pointer border-b border-gray-700"
-      onClick={() => router.push(`/post/${id}`)}
+      onClick={(e) => {
+        e.stopPropagation();
+        setPostId(id);
+        router.push(`/post/${id}`);
+      }}
     >
       {!postPage && (
         <img
@@ -320,6 +324,7 @@ function checkVerified(){
               className="flex items-center space-x-1 group"
               onClick={(e) => {
                 e.stopPropagation();
+                likePost();
                 deleteDoc(doc(db, "posts", id));
                 deleteDoc(doc(db, "posts", session.user.uid, "userposts", id));
                 router.push("/");
