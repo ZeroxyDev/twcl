@@ -196,12 +196,15 @@ function checkVerified(){
 
   const checkInfo = async () =>{
     console.log("Info Checked")
-    if(post?.userImg !== session.user.image || post?.username !== session.user.name){
-      await updateDoc(doc(db, "posts", id), {
-        username: session.user.name,
-        userImg: session.user.image
-      });
+    if(post?.id == session.user.uid){
+      if(post?.userImg !== session.user.image || post?.username !== session.user.name){
+        await updateDoc(doc(db, "posts", id), {
+          username: session.user.name,
+          userImg: session.user.image
+        });
+      }
     }
+   
   }
 
   if(!loaded){
