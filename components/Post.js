@@ -6,6 +6,7 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
 } from "@firebase/firestore";
 import {
   ChartBarIcon,
@@ -32,6 +33,7 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
+import profilePage from "../pages/[id]";
 
 
 
@@ -43,6 +45,8 @@ function Post({ id, post, postPage }) {
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [loadedprofile, setLoadedprofile] = useState(false);
   const router = useRouter();
   var verifieds = require('./verified');
 
@@ -188,6 +192,40 @@ function checkVerified(){
     }
   };
 
+
+
+  const checkInfo = async () =>{
+    console.log("Info Checked")
+    if(post?.userImg !== session.user.image || post?.username !== session.user.name){
+      await updateDoc(doc(db, "posts", id), {
+        username: session.user.name,
+        userImg: session.user.image
+      });
+    }
+  }
+
+  if(!loaded){
+    checkInfo() 
+    setLoaded(true)
+  }
+
+
+
+  const checkInfoProfile = async () =>{
+    console.log("Profile Info Checked")
+    if(post?.userImg !== session.user.image || post?.username !== session.user.name){
+      await updateDoc(doc(db, "posts", session.user.uid, "userposts", id), {
+        username: session.user.name,
+        userImg: session.user.image
+      });
+    }
+  }
+
+  
+  if(!loadedprofile){
+    checkInfoProfile() 
+    setLoadedprofile(true)
+  }
 
   return (
     <div

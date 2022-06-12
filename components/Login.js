@@ -66,7 +66,7 @@ function Login({ providers }) {
               onClick={() => signIn('google')}
             >
               <span className=" relative w-full text-left text-white group-hover:text-white">
-                Sign in with Google <p className="inline-block ml-2"><i class="fa-brands fa-google"></i></p>
+                Sign in with Google <p className="inline-block ml-2"><i className="fa-brands fa-google"></i></p>
               </span>
             </button>
             <button
@@ -74,7 +74,7 @@ function Login({ providers }) {
               onClick={() => signIn('github')}
             >
               <span className=" relative w-full text-left text-white transition-colors duration-300 ease-in-out group-hover:text-white">
-                Sign in with GitHub <p className="inline-block ml-2"><i class="fa-brands fa-github"></i></p>
+                Sign in with GitHub <p className="inline-block ml-2"><i className="fa-brands fa-github"></i></p>
               </span>
             </button>
          </div>

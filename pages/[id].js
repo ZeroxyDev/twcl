@@ -40,6 +40,7 @@ import {
     const { id } = router.query;
     const [post, setPost] = useState();
     const [posts, setPosts] = useState([]);
+    const [loaded, setLoaded] = useState(false);
 
 
     
@@ -73,7 +74,7 @@ import {
     const isLog = profile?.uid;
     const noLog = session.user.uid;
 
-    if(profile){
+    if(!loaded){
       checkProfile()
     }
 
@@ -86,6 +87,7 @@ import {
             setPosts(snapshot.docs);
           }
         )
+        setLoaded(true)
         return (isLog);
   
       }

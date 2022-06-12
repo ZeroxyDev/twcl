@@ -17,7 +17,7 @@ import checkVerified from "../../components/verified";
 import Login from "../../components/Login";
 import { LinkIcon, BookmarkAltIcon } from "@heroicons/react/outline";
 import { signup, useAuth, logout } from "../../firebase"
-import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query } from "firebase/firestore"
+import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query, updateDoc } from "firebase/firestore"
 import Moment from "react-moment";
 import EditProfile from "../../components/EditProfile";
 
@@ -71,6 +71,8 @@ function Profile({ trendingResults, followResults, providers, articles }) {
   const { id } = router.query;
   const [posts, setPosts] = useState([]);
   const [postId, setPostId] = useRecoilState(postIdState);
+  const [loadedbio, setLoadedbio] = useState(false);
+  const [loadedlink, setLoadedlink] = useState(false);
 
 
   if (!session) return <Login providers={providers} />;
@@ -98,6 +100,49 @@ function Profile({ trendingResults, followResults, providers, articles }) {
       ),
     [db]
   );
+
+  const yesbio = "h-5 ml-4 inline-flex items-center  text-[#6e767d]"
+
+  const nobio = "h-5 ml-1 inline-flex items-center  text-[#6e767d]"
+
+  const biocheckd = checkbio();
+
+
+  function checkbio(){
+      if(!loadedlink){
+        console.log("bio checked")
+        if(session.user.biolink == "" || session.user.biolink == null){
+          return(nobio)
+        }
+        else{
+          return(yesbio)
+        }
+      }
+      setLoadedlink(true)
+  }
+
+  const yeslink = "h-5 inline-flex ml-4 text-[#6e767d]"
+
+  const nolink = "hidden"
+
+  const linkcheckd = checklink();
+
+
+  function checklink(){
+    if(!loadedbio){
+      console.log("website checked")
+      if(session.user.biolink == "" || session.user.biolink == null){
+        return(nolink)
+      }
+      else{
+        return(yeslink)
+      }
+    }
+    setLoadedbio(true)
+
+  }
+
+
 
 
   return (
@@ -172,13 +217,13 @@ function Profile({ trendingResults, followResults, providers, articles }) {
   
          <div className="mt-2 inline-block truncate max-w-[240px] sm:max-w-[240px] text-[#1d9bf0]">
            
-           <LinkIcon className="h-5 inline-flex ml-4 text-[#6e767d]" />
+           <LinkIcon className={linkcheckd} />
            <a className="ml-2" href={session.user.biolink}>{session.user.biolink}</a>
            
           </div> 
           
           <div className="inline-flex items-center max-w-[240px]">
-          <BookmarkAltIcon className="h-5 ml-4 inline-flex items-center  text-[#6e767d]" />
+          <BookmarkAltIcon className={biocheckd} />
           <p className="text-[#6e767d] ml-2"> Joined <Moment format="D MMM YYYY" withTitle element="span">{session.user.firstseen}</Moment></p>
           </div>
 

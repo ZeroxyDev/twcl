@@ -8,6 +8,7 @@ import {
   addDoc,
   collection,
   serverTimestamp,
+  setDoc,
 } from "@firebase/firestore";
 import { db } from "../firebase";
 import { useSession } from "next-auth/react";
@@ -71,6 +72,17 @@ function Modal() {
       userImg: session.user.image,
       timestamp: serverTimestamp(),
       id: session.user.uid,
+    });
+
+    await addDoc(collection(db, "posts", session.user.uid, "comments"), {
+      comment: comment,
+      username: session.user.name,
+      tag: session.user.tag,
+      userImg: session.user.image,
+      timestamp: serverTimestamp(),
+      id: session.user.uid,
+      replied: postId,
+      repliedto: post?.username,
     });
 
     setIsOpen(false);

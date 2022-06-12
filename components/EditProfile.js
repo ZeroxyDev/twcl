@@ -47,7 +47,7 @@ function EditProfile() {
   
   setTimeout(function() {
     setLoading(false)
-}, 3000);
+}, 1000);
 
   function handleChange(e) {
     setLoading(true)
@@ -171,9 +171,12 @@ function EditProfile() {
 
       await updateDoc(doc(db, "users", session.user.tag), {
         displayName: nameck(),
-        biolink: webck(),
-        biografy: biock(),
+        biolink: linkinput.current.value,
+        biografy: bioinput.current.value,
       });
+
+
+
   
 
 /*     const docRef = doc(db, "users", session.user.tag);
@@ -246,7 +249,7 @@ function EditProfile() {
                 src={bannersrc}
                  className="xl:h-[560px] sm:h-[800px] h-[540px] xl:w-[700px] sm:w-[1100px] object-cover flex"
                   />
-            <label for="banupl" className=" absolute flex items-center justify-center  hover:bg-[#464646] bg-black rounded-full w-12 h-12 m-5 mr-4 cursor-pointer">
+            <label htmlFor="banupl" className=" absolute flex items-center justify-center  hover:bg-[#464646] bg-black rounded-full w-12 h-12 m-5 mr-4 cursor-pointer">
             <CloudUploadIcon className="relative w-[50%] h-[50%] text-white top-0 left-0 rounded-full cursor-pointer" />
             <input id="banupl" type="file" className="absolute w-full h-full bg-white top-0 left-0 opacity-0 hidden rounded-full cursor-pointer" placeholder="banner" onChange={handleChangeBanner} />
             </label>
@@ -256,8 +259,8 @@ function EditProfile() {
              <img
              src={imagesrc}
              alt=""
-             className="xl:h-42 xl:w-42 h-36 w-36 sm:-mt-24 -mt-20 absolute object-cover rounded-full mr-4 border-4 border-black"/>
-            <label for="picupl" className=" absolute flex items-center justify-center hover:bg-[#464646] bg-black rounded-full w-16 h-16 sm:-mt-14 -mt-10 mr-4 cursor-pointer">
+             className="xl:h-42 xl:w-42 h-36 w-36 sm:-mt-24 -mt-20 absolute object-cover rounded-full border-4 border-black"/>
+            <label htmlFor="picupl" className=" absolute flex items-center justify-center hover:bg-[#464646] bg-black rounded-full w-16 h-16 sm:-mt-14 -mt-10 cursor-pointer">
             <CloudUploadIcon className="relative w-[50%] h-[50%] text-white top-0 left-0 rounded-full cursor-pointer" />
             <input id="picupl" type="file" className="absolute hidden w-full h-full bg-white top-0 left-0 opacity-0 rounded-full cursor-pointer" placeholder="banner" onChange={handleChange} />
             </label>
@@ -269,6 +272,7 @@ function EditProfile() {
                     <p className="text-gray-400 mb-1">Name</p>
                       <div className="border rounded-lg border-gray-600">
                       <textarea
+                      defaultValue={session.user.name}
                         ref={nameinput}
                         type="hidden"
                         placeholder="Edit name"
@@ -284,6 +288,7 @@ function EditProfile() {
                     <p className="text-gray-400 mb-1">Bio</p>
                       <div className="border rounded-lg border-gray-600">
                       <textarea
+                      defaultValue={session.user.bio}
                       ref={bioinput}
                         type="hidden"
                         placeholder="Edit bio"
@@ -296,14 +301,15 @@ function EditProfile() {
                     </div>
 
                     <div className="flex-grow mt-2">
-                    <p className="text-gray-400 mb-1">Website</p>
+                    <p className="text-gray-400 mb-1 inline-block">Website</p>
                       <div className="border rounded-lg border-gray-600">
                       <textarea
+                      defaultValue={session.user.biolink}
                       ref={linkinput}
                         type="hidden"
                         placeholder="Edit website"
                         rows="1"
-                        className="bg-transparent ml-2 py-2 resize-none flex-wrap outline-none overflow-hidden text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[30px]"
+                        className="bg-transparent ml-2 py-2 resize-none flex-wrap outline-none overflow-hidden text-[#1d9bf0] text-lg placeholder-gray-500 tracking-wide w-full min-h-[30px]"
                       />
                       </div>
                       <div className="flex pt-2.5">
