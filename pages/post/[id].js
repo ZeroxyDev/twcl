@@ -57,7 +57,7 @@ function PostPage({ trendingResults, followResults, providers, articles }) {
     <div>
       <Head>
         <title>
-          {post?.username} on Twitter: "{post?.text}"
+          {post?.username} on Kron: "{post?.text}"
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>

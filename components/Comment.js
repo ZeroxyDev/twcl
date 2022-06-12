@@ -7,7 +7,7 @@ import checkVerified from './verified'
 import Post from "./Post";
 import { useEffect, useState, useRef } from "react";
 import { useRecoilState } from "recoil";
-import { modalState, editState, postIdState } from "../atoms/modalAtom";
+import { modalState, editState, postIdState, commentIdState } from "../atoms/modalAtom";
 import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query, updateDoc, deleteDoc } from "firebase/firestore"
 import { db } from "../firebase";
 import { useSession } from "next-auth/react";
@@ -50,6 +50,7 @@ function Comment({ comment, id }) {
   const [liked, setLiked] = useState(false);
   const [posts, setPosts] = useState([]);
   const [postId, setPostId] = useRecoilState(postIdState);
+  const [commentId, setCommentId] = useRecoilState(commentIdState);
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -89,6 +90,7 @@ function Comment({ comment, id }) {
      onClick={(e) => {
       e.stopPropagation();
       setPostId(postId);
+      setCommentId(id)
       router.push(`/comments/${postId}`);
     }}>
       <img

@@ -20,7 +20,7 @@ import Comment from "../../components/Comment";
 import Head from "next/head";
 import Register from "../../components/Register";
 import Header from "../../components/Header";
-import { postIdState } from "../../atoms/modalAtom";
+import { postIdState, commentIdState } from "../../atoms/modalAtom";
 
 
 
@@ -28,7 +28,9 @@ function CommentPage({ trendingResults, followResults, providers, articles }) {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [post, setPost] = useState();
+  const [comment, setComment] = useState();
   const [postId, setPostId] = useRecoilState(postIdState);
+  const [commentId, setCommentId] = useRecoilState(commentIdState);
   const [comments, setComments] = useState([]);
   const router = useRouter();
   const { id } = router.query;
@@ -45,13 +47,21 @@ function CommentPage({ trendingResults, followResults, providers, articles }) {
     [db, id]
   );
 
+  useEffect(
+    () =>
+      onSnapshot(doc(db, "posts", id, "comments", commentId), (snapshot) => {
+        setComment(snapshot.data());
+      }),
+    [db]
+  );
+
   if (!session) return <Register providers={providers} />;
 
   return (
     <div>
       <Head>
         <title>
-          {post?.username} on Kron: "{post?.text}"
+          {comment?.username} on Kron: "{comment?.comment}"
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
