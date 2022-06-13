@@ -153,7 +153,7 @@ if(!loadedprofile){
               <Moment fromNow>{reply?.timestamp?.toDate()}</Moment>
             </span>
             <p className="mt-0.5 mb-1.5 max-w-lg overflow-auto text-[15px] sm:text-base">{/* {replied} */}</p>
-            <p className="text-[#d9d9d9] mt-0.5 mb-1.5 max-w-lg overflow-auto text-[15px] sm:text-base inline-block">
+            <p className="text-[#d9d9d9] mt-0.5 mb-1.5 max-w-lg overflow-auto text-[15px] sm:text-base">
               {reply?.comment}
             </p>
           </div>
