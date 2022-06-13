@@ -9,34 +9,63 @@ import { getProviders, getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalState, modalcState } from "../../atoms/modalAtom";
-import Modal from "../../components/Modal";
-import Modalcomment from "../../components/Modalcomment";
-import Sidebar from "../../components/Sidebar";
-import Widgets from "../../components/Widgets";
-import Post from "../../components/Post";
-import { db } from "../../firebase";
+import { modalState, modalcState } from "../../../../atoms/modalAtom";
+import Modal from "../../../../components/Modal";
+import Modalcomment from "../../../../components/Modalcomment";
+import Sidebar from "../../../../components/Sidebar";
+import Widgets from "../../../../components/Widgets";
+import Post from "../../../../components/Post";
+import { db } from "../../../../firebase";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
-import Comment from "../../components/Comment";
+import Comment from "../../../../components/Comment";
+import Reply from "../../../../components/Reply";
 import Head from "next/head";
-import Register from "../../components/Register";
-import Header from "../../components/Header";
+import Register from "../../../../components/Register";
+import Header from "../../../../components/Header";
+import { postIdState, commentIdState, replyIdState, comIdState } from "../../../../atoms/modalAtom";
 
 
 
-function PostPage({ trendingResults, followResults, providers, articles }) {
+function CommentPage({ trendingResults, followResults, providers, articles }) {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [iscOpen, setIscOpen] = useRecoilState(modalcState);
   const [post, setPost] = useState();
+  const [comment, setComment] = useState();
+  const [postId, setPostId] = useRecoilState(postIdState);
+  const [commentId, setCommentId] = useRecoilState(commentIdState);
+  const [comId, setComId] = useRecoilState(comIdState);
+  const [replyId, setReplyId] = useRecoilState(replyIdState);
   const [comments, setComments] = useState([]);
+  const [replies, setReplies] = useState([]);
+  const [reply, setReply] = useState([]);
   const router = useRouter();
-  const { id } = router.query;
+  const { cid } = router.query;
+  const { pid } = router.query;
 
   useEffect(
     () =>
-      onSnapshot(doc(db, "posts", id), (snapshot) => {
-        setPost(snapshot.data());
+      setPostId(pid),
+      setComId(cid),
+    []
+  );
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, "posts", pid, "comments"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot) => setComments(snapshot.docs)
+      ),
+    [db, cid]
+  );
+
+  useEffect(
+    () =>
+      onSnapshot(doc(db, "posts", pid, "comments", cid), (snapshot) => {
+        setComment(snapshot.data());
       }),
     [db]
   );
@@ -45,12 +74,12 @@ function PostPage({ trendingResults, followResults, providers, articles }) {
     () =>
       onSnapshot(
         query(
-          collection(db, "posts", id, "comments"),
+          collection(db, "posts", pid, "comments", cid, "replies"),
           orderBy("timestamp", "desc")
         ),
-        (snapshot) => setComments(snapshot.docs)
+        (snapshot) => setReplies(snapshot.docs)
       ),
-    [db, id]
+    [db, cid]
   );
 
   if (!session) return <Register providers={providers} />;
@@ -59,7 +88,7 @@ function PostPage({ trendingResults, followResults, providers, articles }) {
     <div>
       <Head>
         <title>
-          {post?.username} on Kron: "{post?.text}"
+          {comment?.username} on Kron: "{comment?.comment}"
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -70,25 +99,26 @@ function PostPage({ trendingResults, followResults, providers, articles }) {
           <div className="flex items-center px-1.5 py-2 border-b border-gray-700 text-[#d9d9d9] font-semibold text-xl gap-x-4 sticky top-0 z-50 bg-black">
             <div
               className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0"
-              onClick={() => router.push("/")}
+              onClick={() => router.push(`/post/${pid}`)}
             >
               <ArrowLeftIcon className="h-5 text-white" />
             </div>
-            Post
+            Comments
           </div>
+          <Comment id={commentId} comment={comment} commentPage />
 
-          <Post id={id} post={post} postPage />
-          {comments.length > 0 && (
+          {replies.length > 0 && (
             <div className="pb-72">
-              {comments.map((comment) => (
-                <Comment
-                  key={comment.id}
-                  id={comment.id}
-                  comment={comment.data()}
+              {replies.map((reply) => (
+                <Reply
+                  key={reply.id}
+                  id={reply.id}
+                  reply={reply.data()}
                 />
               ))}
             </div>
           )}
+          
         </div>
         <Widgets
           trendingResults={trendingResults}
@@ -103,7 +133,7 @@ function PostPage({ trendingResults, followResults, providers, articles }) {
   );
 }
 
-export default PostPage;
+export default CommentPage;
 
 export async function getServerSideProps(context) {
   const providers = await getProviders();

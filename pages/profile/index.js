@@ -3,14 +3,13 @@ import { getProviders, getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
 import { useRecoilState } from "recoil";
-import { modalState, editState, postIdState } from "../../atoms/modalAtom";
+import { modalState, editState, postIdState, commentIdState, comIdState } from "../../atoms/modalAtom";
 import Modal from "../../components/Modal";
 import Sidebar from "../../components/Sidebar";
 import Widgets from "../../components/Widgets";
 import Post from "../../components/Post";
 import { db } from "../../firebase";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
-import Comment from "../../components/Comment";
 import Head from "next/head";
 import Header from "../../components/Header";
 import checkVerified from "../../components/verified";
@@ -20,6 +19,7 @@ import { signup, useAuth, logout } from "../../firebase"
 import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query, updateDoc } from "firebase/firestore"
 import Moment from "react-moment";
 import EditProfile from "../../components/EditProfile";
+import Comment from "../post/[pid]/comments/Comment";
 
 
 function Profile({ trendingResults, followResults, providers, articles }) {
@@ -71,9 +71,10 @@ function Profile({ trendingResults, followResults, providers, articles }) {
   const { id } = router.query;
   const [posts, setPosts] = useState([]);
   const [postId, setPostId] = useRecoilState(postIdState);
+  const [commentId, setCommentId] = useRecoilState(commentIdState);
+  const [comId, setComId] = useRecoilState(comIdState);
   const [loadedbio, setLoadedbio] = useState(false);
   const [loadedlink, setLoadedlink] = useState(false);
-
 
   if (!session) return <Login providers={providers} />;
 
@@ -104,10 +105,11 @@ function Profile({ trendingResults, followResults, providers, articles }) {
   useEffect(
     () =>
       onSnapshot(
-        query(collection(db, "posts", session.user.uid, "comments"), orderBy("timestamp", "desc")),
-        (snapshot) => {
-          setComments(snapshot.docs);
-        }
+        query(
+          collection(db, "posts", session.user.uid, "comments"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot) => setComments(snapshot.docs)
       ),
     [db]
   );
@@ -268,17 +270,9 @@ function Profile({ trendingResults, followResults, providers, articles }) {
         {posts.map((post) => (
           <Post key={post.id} id={post.id} post={post.data()} />
         ))}
-{/*         {comments.length > 0 && (
-            <div className="pb-72">
-              {comments.map((comment) => (
-                <Comment
-                  key={comment.id}
-                  id={comment.id}
-                  comment={comment.data()}
-                />
-              ))}
-            </div>
-          )} */}
+        {comments.map((comment) => (
+          <Comment key={comment.id} id={comment.id} postId={comment.replied} comment={comment.data()} />
+        ))}
       </div>
         </div>
 

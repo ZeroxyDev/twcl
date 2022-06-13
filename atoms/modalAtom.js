@@ -20,6 +20,11 @@ export const commentIdState = atom({
   default: "",
 });
 
+export const comIdState = atom({
+  key: "comIdState",
+  default: "",
+});
+
 export const replyIdState = atom({
   key: "replyIdState",
   default: "",

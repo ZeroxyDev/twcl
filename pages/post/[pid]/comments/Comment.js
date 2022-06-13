@@ -3,13 +3,13 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/brands';
-import checkVerified from './verified'
-import Post from "./Post";
+import checkVerified from '../../../../components/verified'
+import Post from "../../../../components/Post";
 import { useEffect, useState, useRef } from "react";
 import { useRecoilState } from "recoil";
-import { modalcState, editState, postIdState, commentIdState, replyIdState } from "../atoms/modalAtom";
+import { modalcState, editState, postIdState, commentIdState, replyIdState } from "../../../../atoms/modalAtom";
 import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query, updateDoc, deleteDoc } from "firebase/firestore"
-import { db } from "../firebase";
+import { db } from "../../../../firebase";
 import { useSession } from "next-auth/react";
 import {
   ChartBarIcon,
@@ -27,9 +27,9 @@ import {
 } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 
-function Comment({ comment, id }) {
+function Comment({ comment, id}) {
  
-  var verifieds = require('./verified');
+  var verifieds = require('../../../../components/verified');
 
   let veri =  <BadgeCheckIconFilled className="h-5 mb-0.5 inline-block" />
 
@@ -46,6 +46,7 @@ function Comment({ comment, id }) {
     }
   }
 
+
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -58,10 +59,10 @@ function Comment({ comment, id }) {
   const [replies, setReplies] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [loadedprofile, setLoadedprofile] = useState(false);
+  
 
 
   const replied = `(Replying to: @${comment?.repliedto})`;
-
 
   useEffect(
     () =>
@@ -73,9 +74,9 @@ function Comment({ comment, id }) {
 
   const likePost = async () => {
     if (liked) {
-      await deleteDoc(doc(db, "posts", postId, "comments", id, "likes", session.user.uid));
+      await deleteDoc(doc(db, "posts", comment.replied, "comments", id, "likes", session.user.uid));
     } else {
-      await setDoc(doc(db, "posts", postId, "comments", id, "likes", session.user.uid), {
+      await setDoc(doc(db, "posts", comment.replied, "comments", id, "likes", session.user.uid), {
         username: session.user.name,
       });
     }
@@ -83,8 +84,8 @@ function Comment({ comment, id }) {
 
 
   function checklik(){
-    if(postId){
-      onSnapshot(collection(db, "posts", postId, "comments", id, "likes"), (snapshot) =>
+    if(comment.replied){
+      onSnapshot(collection(db, "posts", comment.replied, "comments", id, "likes"), (snapshot) =>
       setLikes(snapshot.docs)
     )
     }
@@ -98,7 +99,7 @@ function Comment({ comment, id }) {
     if(postId){
       onSnapshot(
         query(
-          collection(db, "posts", postId , "comments", id, "replies"),
+          collection(db, "posts", comment.replied , "comments", id, "replies"),
           orderBy("timestamp", "desc")
         ),
         (snapshot) => setReplies(snapshot.docs))
@@ -112,8 +113,7 @@ function Comment({ comment, id }) {
   useEffect(() => {
     checkrepls();
     checklik();
-  }, [])  
-
+  }, []) 
 
   //check profile
 
@@ -140,7 +140,7 @@ function Comment({ comment, id }) {
   const checkInfoProfile = async () =>{
     console.log("Profile Info Checked")
     if(comment?.userImg !== session.user.image || comment?.username !== session.user.name){
-      await updateDoc(doc(db, "posts", session.user.uid, "userposts", postId, "comments", id), {
+      await updateDoc(doc(db, "posts", session.user.uid, "userposts", comment.replied, "comments", id), {
         username: session.user.name,
         userImg: session.user.image
       });
@@ -163,7 +163,7 @@ function Comment({ comment, id }) {
       e.stopPropagation();
       setPostId(postId);
       setCommentId(id)
-      router.push(`comments/${id}`);
+      router.push(`/post/${comment.replied}/comments/${id}`);
     }}>
       <img
         src={comment?.userImg}
@@ -203,6 +203,7 @@ function Comment({ comment, id }) {
             onClick={(e) => {
               e.stopPropagation();
               setCommentId(id);
+              setPostId(comment.replied),
               setIscOpen(true);
             }}
           >
@@ -221,7 +222,8 @@ function Comment({ comment, id }) {
               className="flex items-center space-x-1 group"
               onClick={(e) => {
                 e.stopPropagation();
-                deleteDoc(doc(db, "posts", postId, "comments", id));
+                setPostId(comment.replied),
+                deleteDoc(doc(db, "posts",comment.replied, "comments", id));
                 deleteDoc(doc(db, "posts", comment?.id, "comments", id));
                 router.push("/");
               }}
@@ -242,6 +244,7 @@ function Comment({ comment, id }) {
             className="flex items-center space-x-1 group"
             onClick={(e) => {
               e.stopPropagation();
+              setPostId(comment.replied),
               likePost();
             }}
           >
