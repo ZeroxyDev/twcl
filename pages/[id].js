@@ -16,12 +16,12 @@ import {
   import Post from "../components/Post";
   import { db } from "../firebase";
   import { ArrowLeftIcon } from "@heroicons/react/solid";
-  import Comment from "../components/Comment";
   import Head from "next/head";
   import Register from "../components/Register";
   import Header from "../components/Header";
   import { LinkIcon, BookmarkAltIcon } from "@heroicons/react/outline";
   import Moment from "react-moment";
+  import Comment from "./post/[pid]/comments/Comment";
 
   import {
     HeartIcon as HeartIconFilled,
@@ -41,7 +41,6 @@ import {
     const [post, setPost] = useState();
     const [posts, setPosts] = useState([]);
     const [loaded, setLoaded] = useState(false);
-
 
     
     var verifieds = require('../components/verified');
@@ -96,6 +95,18 @@ import {
 
       }
     }
+
+    useEffect(
+      () =>
+        onSnapshot(
+          query(
+            collection(db, "posts", session.user.uid, "comments"),
+            orderBy("timestamp", "desc")
+          ),
+          (snapshot) => setComments(snapshot.docs)
+        ),
+      [db]
+    );
 
 
     
@@ -200,6 +211,9 @@ import {
          <div className="pb-72">
         {posts.map((post) => (
           <Post key={post.id} id={post.id} post={post.data()} />
+        ))}
+         {comments.map((comment) => (
+          <Comment key={comment.id} id={comment.id} postId={comment.replied} comment={comment.data()} />
         ))}
       </div>
           </div>
