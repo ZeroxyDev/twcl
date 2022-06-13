@@ -176,7 +176,7 @@ if(!loadedprofile){
                 e.stopPropagation();
                 deleteDoc(doc(db, "posts", postId, "comments", commentId, "replies", id));
                 deleteDoc(doc(db, "posts", reply?.id, "comments", commentId, "replies", id));
-                router.push(`/posts/${postId}`);
+/*                 router.push(`/posts/${postId}`); */
               }}
             >
               <div className="icon group-hover:bg-red-600/10">
