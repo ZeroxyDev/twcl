@@ -100,7 +100,7 @@ import {
       () =>
         onSnapshot(
           query(
-            collection(db, "posts", session.user.uid, "comments"),
+            collection(db, "posts", profile.uid, "comments"),
             orderBy("timestamp", "desc")
           ),
           (snapshot) => setComments(snapshot.docs)
