@@ -41,6 +41,7 @@ import {
     const [post, setPost] = useState();
     const [posts, setPosts] = useState([]);
     const [loaded, setLoaded] = useState(false);
+    const [loadedreplies, setLoadedreplies] = useState(false);
 
     
     var verifieds = require('../components/verified');
@@ -77,6 +78,10 @@ import {
       checkProfile()
     }
 
+    if(!loadedreplies){
+      checkReplies()
+    }
+
 
     function checkProfile(){
       if(profile){
@@ -96,17 +101,23 @@ import {
       }
     }
 
-    useEffect(
-      () =>
+    function checkReplies(){
+      if(profile){
         onSnapshot(
-          query(
-            collection(db, "posts", profile.uid, "comments"),
-            orderBy("timestamp", "desc")
-          ),
-          (snapshot) => setComments(snapshot.docs)
-        ),
-      [db]
-    );
+          query(collection(db, "posts", profile.uid, "comments"), orderBy("timestamp", "desc")),
+          (snapshot) => {
+            setComments(snapshot.docs);
+          }
+        )
+        setLoadedreplies(true)
+        return (isLog);
+  
+      }
+      else{
+        return (noLog);
+
+      }
+    }
 
 
     
