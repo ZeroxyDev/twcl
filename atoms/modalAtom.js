@@ -5,6 +5,11 @@ export const modalState = atom({
   default: false,
 });
 
+export const modalcState = atom({
+  key: "modalcState",
+  default: false,
+});
+
 export const postIdState = atom({
   key: "postIdState",
   default: "",
@@ -12,6 +17,11 @@ export const postIdState = atom({
 
 export const commentIdState = atom({
   key: "commentIdState",
+  default: "",
+});
+
+export const replyIdState = atom({
+  key: "replyIdState",
   default: "",
 });
 

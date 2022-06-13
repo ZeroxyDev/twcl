@@ -9,8 +9,9 @@ import { getProviders, getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalState } from "../../atoms/modalAtom";
+import { modalState, modalcState } from "../../atoms/modalAtom";
 import Modal from "../../components/Modal";
+import Modalcomment from "../../components/Modalcomment";
 import Sidebar from "../../components/Sidebar";
 import Widgets from "../../components/Widgets";
 import Post from "../../components/Post";
@@ -26,6 +27,7 @@ import Header from "../../components/Header";
 function PostPage({ trendingResults, followResults, providers, articles }) {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
+  const [iscOpen, setIscOpen] = useRecoilState(modalcState);
   const [post, setPost] = useState();
   const [comments, setComments] = useState([]);
   const router = useRouter();
@@ -95,6 +97,7 @@ function PostPage({ trendingResults, followResults, providers, articles }) {
         />
 
         {isOpen && <Modal />}
+        {iscOpen && <Modalcomment />}
       </main>
     </div>
   );

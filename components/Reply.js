@@ -7,7 +7,7 @@ import checkVerified from './verified'
 import Post from "./Post";
 import { useEffect, useState, useRef } from "react";
 import { useRecoilState } from "recoil";
-import { modalcState, editState, postIdState, commentIdState, replyIdState } from "../atoms/modalAtom";
+import { modalState, editState, postIdState, commentIdState, replyIdState } from "../atoms/modalAtom";
 import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query, updateDoc, deleteDoc } from "firebase/firestore"
 import { db } from "../firebase";
 import { useSession } from "next-auth/react";
@@ -27,7 +27,7 @@ import {
 } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 
-function Comment({ comment, id }) {
+function Reply({ reply, id }) {
  
   var verifieds = require('./verified');
 
@@ -38,7 +38,7 @@ function Comment({ comment, id }) {
   let veri2 = checkVerified()
   
   function checkVerified(){
-    if (verifieds.verifieds.includes(comment?.id)){
+    if (verifieds.verifieds.includes(reply?.id)){
       return (veri);
     }
     else{
@@ -49,24 +49,21 @@ function Comment({ comment, id }) {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [iscOpen, setIscOpen] = useRecoilState(modalcState);
   const [postId, setPostId] = useRecoilState(postIdState);
   const [replyId, setReplyId] = useRecoilState(replyIdState);
   const [commentId, setCommentId] = useRecoilState(commentIdState);
   const { data: session } = useSession();
   const router = useRouter();
-  const [replies, setReplies] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [loadedprofile, setLoadedprofile] = useState(false);
 
-
-  const replied = `(Replying to: @${comment?.repliedto})`;
+  const replied = `(Replying to: @${reply?.repliedto})`;
 
   useEffect(
     () =>
-      onSnapshot(collection(db, "posts", postId, "comments", id, "likes"), (snapshot) =>
+      onSnapshot(collection(db, "posts", postId, "comments", commentId, "replies", id, "likes"), (snapshot) =>
         setLikes(snapshot.docs)
-      ), 
+      ), setReplyId(id),
     [db, id]
   );
 
@@ -80,65 +77,53 @@ function Comment({ comment, id }) {
 
   const likePost = async () => {
     if (liked) {
-      await deleteDoc(doc(db, "posts", postId, "comments", id, "likes", session.user.uid));
+      await deleteDoc(doc(db, "posts", postId, "comments", commentId, "replies", id, "likes", session.user.uid));
     } else {
-      await setDoc(doc(db, "posts", postId, "comments", id, "likes", session.user.uid), {
+      await setDoc(doc(db, "posts", postId, "comments", commentId, "replies", id, "likes", session.user.uid), {
         username: session.user.name,
       });
     }
   };
 
-  useEffect(
-    () =>
-      onSnapshot(
-        query(
-          collection(db, "posts", postId , "comments", id, "replies"),
-          orderBy("timestamp", "desc")
-        ),
-        (snapshot) => setReplies(snapshot.docs)
-      )
-    [db, id]
-  );
+//check profile
 
-  //check profile
-
-  const checkInfo = async () =>{
-    console.log("Info Checked")
-    if(comment?.id == session.user.uid){
-      if(comment?.userImg !== session.user.image || comment?.username !== session.user.name){
-        await updateDoc(doc(db, "posts", postId, "comments", id), {
-          username: session.user.name,
-          userImg: session.user.image
-        });
-      }
-    }
-   
-  }
-
-  if(!loaded){
-    checkInfo() 
-    setLoaded(true)
-  }
-
-
-
-  const checkInfoProfile = async () =>{
-    console.log("Profile Info Checked")
-    if(comment?.userImg !== session.user.image || comment?.username !== session.user.name){
-      await updateDoc(doc(db, "posts", session.user.uid, "userposts", postId, "comments", id), {
+const checkInfo = async () =>{
+  console.log("Info Checked")
+  if(reply?.id == session.user.uid){
+    if(reply?.userImg !== session.user.image || reply?.username !== session.user.name){
+      await updateDoc(doc(db, "posts", postId, "comments", commentId, "replies", id), {
         username: session.user.name,
         userImg: session.user.image
       });
     }
   }
+ 
+}
 
-  
-  if(!loadedprofile){
-    checkInfoProfile() 
-    setLoadedprofile(true)
+if(!loaded){
+  checkInfo() 
+  setLoaded(true)
+}
+
+
+
+const checkInfoProfile = async () =>{
+  console.log("Profile Info Checked")
+  if(reply?.userImg !== session.user.image || reply?.username !== session.user.name){
+    await updateDoc(doc(db, "posts", session.user.uid, "userposts", postId, "comments", commentId, "replies", id), {
+      username: session.user.name,
+      userImg: session.user.image
+    });
   }
+}
 
-  //fin check profile
+
+if(!loadedprofile){
+  checkInfoProfile() 
+  setLoadedprofile(true)
+}
+
+//fin check profile
   
 
 
@@ -146,12 +131,9 @@ function Comment({ comment, id }) {
     <div className="p-3 flex cursor-pointer border-b border-gray-700"     
      onClick={(e) => {
       e.stopPropagation();
-      setPostId(postId);
-      setCommentId(id)
-      router.push(`/comments/${id}`);
     }}>
       <img
-        src={comment?.userImg}
+        src={reply?.userImg}
         alt=""
         className="h-11 w-11 rounded-full mr-4 object-cover"
       />
@@ -160,19 +142,19 @@ function Comment({ comment, id }) {
           <div className="text-[#6e767d]">
             <div className="inline-block group">
               <h4 className="font-bold text-[#d9d9d9] text-[15px] sm:text-base inline-block group-hover:underline">
-                {comment?.username} {veri2}
+                {reply?.username} {veri2}
               </h4>
               <span className="ml-1.5 text-sm sm:text-[15px]">
-                @{comment?.tag}{" "}
+                @{reply?.tag}{" "}
               </span>
             </div>{" "}
             ·{" "}
             <span className="hover:underline text-sm sm:text-[15px]">
-              <Moment fromNow>{comment?.timestamp?.toDate()}</Moment>
+              <Moment fromNow>{reply?.timestamp?.toDate()}</Moment>
             </span>
             <p className="mt-0.5 mb-1.5 max-w-lg overflow-auto text-[15px] sm:text-base">{replied}</p>
             <p className="text-[#d9d9d9] mt-0.5 mb-1.5 max-w-lg overflow-auto text-[15px] sm:text-base inline-block">
-              {comment?.comment}
+              {reply?.comment}
             </p>
           </div>
           <div className="icon group flex-shrink-0">
@@ -181,34 +163,20 @@ function Comment({ comment, id }) {
         </div>
 
         <div className="text-[#6e767d] flex justify-between w-10/12">
-        
-        
-        <div
-            className="flex items-center space-x-1 group"
-            onClick={(e) => {
-              e.stopPropagation();
-              setCommentId(id);
-              setIscOpen(true);
-            }}
-          >
-            <div className="icon group-hover:bg-[#ffffff] group-hover:bg-opacity-10">
-              <ChatIcon className="h-5 group-hover:text-[#ffffff]" />
-            </div>
-            {replies.length > 0 && (
-              <span className="group-hover:text-[#1d9bf0] text-sm">
-                {replies.length}
-              </span>
-            )}
-          </div>
+          
+          
+{/*           <div className="icon group">
+            <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
+          </div> */}
 
-          {session.user.uid === comment?.id ? (
+          {session.user.uid === reply?.id ? (
             <div
               className="flex items-center space-x-1 group"
               onClick={(e) => {
                 e.stopPropagation();
-                deleteDoc(doc(db, "posts", postId, "comments", id));
-                deleteDoc(doc(db, "posts", comment?.id, "comments", id));
-                router.push("/");
+                deleteDoc(doc(db, "posts", postId, "comments", commentId, "replies", id));
+                deleteDoc(doc(db, "posts", reply?.id, "comments", commentId, "replies", id));
+                router.push(`/posts/${postId}`);
               }}
             >
               <div className="icon group-hover:bg-red-600/10">
@@ -222,6 +190,8 @@ function Comment({ comment, id }) {
               </div>
             </div>
           )}
+
+
 
           <div
             className="flex items-center space-x-1 group"
@@ -261,4 +231,4 @@ function Comment({ comment, id }) {
   );
 }
 
-export default Comment;
+export default Reply;

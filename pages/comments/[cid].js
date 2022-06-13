@@ -17,10 +17,11 @@ import Post from "../../components/Post";
 import { db } from "../../firebase";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import Comment from "../../components/Comment";
+import Reply from "../../components/Reply";
 import Head from "next/head";
 import Register from "../../components/Register";
 import Header from "../../components/Header";
-import { postIdState, commentIdState } from "../../atoms/modalAtom";
+import { postIdState, commentIdState, replyIdState } from "../../atoms/modalAtom";
 
 
 
@@ -31,28 +32,43 @@ function CommentPage({ trendingResults, followResults, providers, articles }) {
   const [comment, setComment] = useState();
   const [postId, setPostId] = useRecoilState(postIdState);
   const [commentId, setCommentId] = useRecoilState(commentIdState);
+  const [replyId, setReplyId] = useRecoilState(replyIdState);
   const [comments, setComments] = useState([]);
+  const [replies, setReplies] = useState([]);
+  const [reply, setReply] = useState([]);
   const router = useRouter();
-  const { id } = router.query;
+  const { cid } = router.query;
 
   useEffect(
     () =>
       onSnapshot(
         query(
-          collection(db, "posts", id, "comments", commentId, "replies"),
+          collection(db, "posts", postId, "comments"),
           orderBy("timestamp", "desc")
         ),
         (snapshot) => setComments(snapshot.docs)
       ),
-    [db, id]
+    [db, cid]
   );
 
   useEffect(
     () =>
-      onSnapshot(doc(db, "posts", id, "comments", commentId), (snapshot) => {
+      onSnapshot(doc(db, "posts", postId, "comments", cid), (snapshot) => {
         setComment(snapshot.data());
       }),
     [db]
+  );
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, "posts", postId, "comments", cid, "replies"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot) => setReplies(snapshot.docs)
+      ),
+    [db, cid]
   );
 
   if (!session) return <Register providers={providers} />;
@@ -79,17 +95,19 @@ function CommentPage({ trendingResults, followResults, providers, articles }) {
             Comments
           </div>
           <Comment id={commentId} comment={comment} commentPage />
-          {comments.length > 0 && (
+
+          {replies.length > 0 && (
             <div className="pb-72">
-              {comments.map((comment) => (
-                <Comment
-                  key={comment.id}
-                  id={comment.id}
-                  comment={comment.data()}
+              {replies.map((reply) => (
+                <Reply
+                  key={reply.id}
+                  id={reply.id}
+                  reply={reply.data()}
                 />
               ))}
             </div>
           )}
+          
         </div>
         <Widgets
           trendingResults={trendingResults}
