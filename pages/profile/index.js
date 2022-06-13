@@ -268,7 +268,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
         {posts.map((post) => (
           <Post key={post.id} id={post.id} post={post.data()} />
         ))}
-        {comments.length > 0 && (
+{/*         {comments.length > 0 && (
             <div className="pb-72">
               {comments.map((comment) => (
                 <Comment
@@ -278,7 +278,7 @@ function Profile({ trendingResults, followResults, providers, articles }) {
                 />
               ))}
             </div>
-          )}
+          )} */}
       </div>
         </div>
 
