@@ -39,7 +39,7 @@ function CommentPage({ trendingResults, followResults, providers, articles }) {
     () =>
       onSnapshot(
         query(
-          collection(db, "posts", id, "comments"),
+          collection(db, "posts", id, "comments", commentId, "replies"),
           orderBy("timestamp", "desc")
         ),
         (snapshot) => setComments(snapshot.docs)
@@ -78,6 +78,7 @@ function CommentPage({ trendingResults, followResults, providers, articles }) {
             </div>
             Comments
           </div>
+          <Comment id={commentId} comment={comment} commentPage />
           {comments.length > 0 && (
             <div className="pb-72">
               {comments.map((comment) => (
