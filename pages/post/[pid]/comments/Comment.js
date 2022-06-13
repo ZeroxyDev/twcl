@@ -140,6 +140,7 @@ function Comment({ comment, id}) {
 
   const checkInfoProfile = async () =>{
     console.log("Profile Info Checked")
+    if(!session){return;}
     if(comment?.userImg !== session.user.image || comment?.username !== session.user.name){
       await updateDoc(doc(db, "posts", session.user.uid, "userposts", comment.replied, "comments", id), {
         username: session.user.name,
