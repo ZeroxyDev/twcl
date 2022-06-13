@@ -101,7 +101,6 @@ function Modalcomment() {
     setIscOpen(false);
     setComment("");
 
-    router.push(`/comment/${commentId}`);
   };
 
   return (
