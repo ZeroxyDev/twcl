@@ -26,6 +26,7 @@ import {
   BadgeCheckIcon as BadgeCheckIconFilled,
 } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
+import Login from "../../../../components/Login";
 
 function Comment({ comment, id}) {
  
@@ -59,6 +60,8 @@ function Comment({ comment, id}) {
   const [replies, setReplies] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [loadedprofile, setLoadedprofile] = useState(false);
+
+  if (!session) return <Login providers={providers} />;
   
 
 
@@ -119,11 +122,11 @@ function Comment({ comment, id}) {
 
   const checkInfo = async () =>{
     console.log("Info Checked")
-    if(comment?.id == session?.user?.uid){
-      if(comment?.userImg !== session?.user?.image || comment?.username !== session?.user?.name){
+    if(comment?.id == session.user.uid){
+      if(comment?.userImg !== session.user.image || comment?.username !== session.user.name){
         await updateDoc(doc(db, "posts", postId, "comments", id), {
-          username: session?.user?.name,
-          userImg: session?.user?.image
+          username: session.user.name,
+          userImg: session.user.image
         });
       }
     }
@@ -139,10 +142,10 @@ function Comment({ comment, id}) {
 
   const checkInfoProfile = async () =>{
     console.log("Profile Info Checked")
-    if(comment?.userImg !== session?.user?.image || comment?.username !== session?.user?.name){
-      await updateDoc(doc(db, "posts", session?.user?.uid, "userposts", comment?.replied, "comments", id), {
-        username: session?.user?.name,
-        userImg: session?.user?.image
+    if(comment?.userImg !== session.user.image || comment?.username !== session.user.name){
+      await updateDoc(doc(db, "posts", session.user.uid, "userposts", comment.replied, "comments", id), {
+        username: session.user.name,
+        userImg: session.user.image
       });
     }
   }
