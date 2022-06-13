@@ -10,7 +10,7 @@ import { useRecoilState } from "recoil";
 import { modalcState, editState, postIdState, commentIdState, replyIdState } from "../../../../atoms/modalAtom";
 import { setDoc, addDoc, collection, onSnapshot, serverTimestamp, doc, getDocs, getDoc, orderBy, query, updateDoc, deleteDoc } from "firebase/firestore"
 import { db } from "../../../../firebase";
-import { useSession } from "next-auth/react";
+import { useSession, getProviders, getSession, } from "next-auth/react";
 import {
   ChartBarIcon,
   ChatIcon,
@@ -28,7 +28,7 @@ import {
 import { useRouter } from "next/router";
 import Login from "../../../../components/Login";
 
-function Comment({ comment, id}) {
+function Comment({ comment, id, providers}) {
  
   var verifieds = require('../../../../components/verified');
 
@@ -283,3 +283,16 @@ function Comment({ comment, id}) {
 }
 
 export default Comment;
+
+export async function getServerSideProps(context) {
+  const providers = await getProviders();
+  const session = await getSession(context);
+
+
+  return {
+    props: {
+      session,
+      providers,
+    },
+  };
+}
