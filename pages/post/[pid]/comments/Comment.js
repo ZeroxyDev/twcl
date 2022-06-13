@@ -119,7 +119,7 @@ function Comment({ comment, id}) {
 
   const checkInfo = async () =>{
     console.log("Info Checked")
-    if(comment?.id == session.user.uid){
+    if(comment?.id == session?.user?.uid){
       if(comment?.userImg !== session.user.image || comment?.username !== session.user.name){
         await updateDoc(doc(db, "posts", postId, "comments", id), {
           username: session.user.name,
